@@ -1,0 +1,100 @@
+.target-container {
+    width:200px;
+    height:100%;
+    border: 1px solid rgb(223,216,216);
+    border-radius: 15px;
+    margin-left:16px;
+    border-bottom-color: rgb(223,216,216);
+    position: relative;
+}
+
+.target-header {
+    display: flex;
+    align-items:center;
+    gap:3px;
+    margin-left:5px;
+}
+
+.target-dropdown {
+    position: relative;
+    display:inline-block;
+    cursor: pointer;
+    margin-top:5px;
+}
+
+.dropdown-icon {
+    width:15px;
+    height:22px;
+    display: inline-block;
+}
+
+.target-dropdown-menu {
+    width:75%;
+    border:1px solid rgb(223, 216, 216);
+    margin-left:32px;
+    border-radius:5px;
+    position: absolute;
+    background-color: white;
+    z-index:1000;
+}
+
+.target-label {
+    margin-left:35px;
+}
+
+.divider {
+    margin:0;
+    border: 0.5px solid rgb(247, 240, 245);
+}
+
+.target-search-box {
+    position: relative;
+    width:100%;
+    display: flex;
+}
+
+.target-body {
+    width:200px;
+    height:173px;
+    overflow:auto;
+    display: flex;
+}
+
+.tree-structure {
+    display: inline;
+}
+
+.tree-structure-container {
+    display: flex ;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.dropdown {
+    margin-left:5px;   
+}
+
+.disabled-checkbox {
+    cursor:not-allowed;
+}
+
+.disabled-label {
+    color: gray;
+    opacity: 0.6;
+}
+
+.error {
+    border: 1px solid #ff4d4f; 
+ }
+ 
+ .warning {
+     border:1px solid #faad14;
+ }
+
+ .target-reload-btn {
+    border:1px solid rgb(223,216,216);
+    padding:5px;
+    border-radius:5px;
+    float: right;
+    margin-bottom: 10px;
+}

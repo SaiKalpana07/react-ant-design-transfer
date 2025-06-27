@@ -1,40 +1,44 @@
 import React from "react";
-import PropTypes from 'prop-types'
-import data from '../../../data.json'
+import PropTypes from "prop-types";
+import downArrow from "../../../Assets/down-arrow.png";
+import './Source.css'
 
-function Source({source}) {
 
-    return (
-        <>
-        <div className="source-container">
-            <div className="source-header">
-                <div className="source-checkbox">
-                    <input type="checkbox"/>
-                </div>
-                <div className="dropdown-wrapper">
-                    <div className="source-dropdown">
-                    <img src={downArrow} alt="Dropdown" className="dropdown-icon" />
 
-                    </div>
-                </div>
-                <div className="source-items-count">
-                <p>{source.length} items</p>
-                </div>
-                <div className="source-label">
-                 <p>{sourceLabel}</p>
-        </div>
+function Source({ source }) {
+  return (
+    <>
+      <div className="source-container">
+        <div className="source-header">
+          <div className="source-checkbox">
+            <input type="checkbox" />
+          </div>
+          <div className="dropdown-wrapper">
+            <div className="source-dropdown">
+              <img src={downArrow} alt="Dropdown" className="dropdown-icon" />
             </div>
-            <hr className="divider" />
-
-
+          </div>
+          <div className="source-items-count">
+            <p>{source.length} items</p>
+          </div>
+          <div className="source-label">
+            <p>source</p>
+          </div>
         </div>
-        </>
-    )
+        <hr className="divider" />
 
+        <div className="source-body"> 
+        <ul>
+           
+          </ul>        
+        </div>
+      </div>
+    </>
+  );
 }
 
 Source.propTypes = {
-    source: PropTypes.array
-}
+  source: PropTypes.array,
+};
 
 export default Source;
