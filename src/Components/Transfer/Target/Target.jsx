@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import downArrow from "../../../Assets/down-arrow.png";
 import "./Target.css";
+import Item from "../Item/Item";
 
 function Target({ target }) {
   console.log("t", target);
@@ -26,7 +27,11 @@ function Target({ target }) {
         </div>
         <hr className="divider" />
 
-        <div className="target-body"></div>
+        <div className="target-body">
+          {target.map((t) => (
+            <Item data={t} />
+          ))}
+        </div>
       </div>
     </>
   );

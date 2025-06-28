@@ -1,9 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import downArrow from "../../../Assets/down-arrow.png";
-import './Source.css'
-
-
+import "./Source.css";
+import Item from "../Item/Item";
 
 function Source({ source }) {
   return (
@@ -27,10 +26,10 @@ function Source({ source }) {
         </div>
         <hr className="divider" />
 
-        <div className="source-body"> 
-        <ul>
-           
-          </ul>        
+        <div className="source-body">
+          {source.map((s) => (
+            <Item data={s}/>
+          ))}
         </div>
       </div>
     </>

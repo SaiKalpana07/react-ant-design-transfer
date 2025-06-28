@@ -1,0 +1,7 @@
+
+li {
+    list-style-type: none;
+    display: flex;
+    gap: 5px;
+    padding: 5px;
+}

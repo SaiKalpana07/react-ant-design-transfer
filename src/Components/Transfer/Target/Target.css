@@ -55,9 +55,6 @@
 
 .target-body {
     width:200px;
-    height:173px;
-    overflow:auto;
-    display: flex;
 }
 
 .tree-structure {
