@@ -1,19 +1,14 @@
 import React, { useState } from "react";
 import "./Item.css";
 
-function Item({ data}) {
-  const[checked,setChecked] = useState(data.selected)
-  const handleCheckboxChange = () => {
-    setChecked(!data.selected)
-  }
+function Item({data,handleCheckBoxChange}) {
 
-  console.log('dataFlag',data)
   return (
     <>
       <li>
-        <input type="checkbox" checked={checked}
-        onChange={handleCheckboxChange}
-        />
+         <input type="checkbox"  checked={data.selected}
+         onChange={() => handleCheckBoxChange(data.id)}
+        /> 
         <label>{data.name}</label>
       </li>
     </>

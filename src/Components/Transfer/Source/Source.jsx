@@ -4,7 +4,7 @@ import downArrow from "../../../Assets/down-arrow.png";
 import "./Source.css";
 import Item from "../Item/Item";
 
-function Source({ source }) {
+function Source({ source, handleCheckBoxChange }) {
   return (
     <>
       <div className="source-container">
@@ -28,7 +28,7 @@ function Source({ source }) {
 
         <div className="source-body">
           {source.map((s) => (
-            <Item data={s}/>
+            <Item data={s} handleCheckBoxChange={handleCheckBoxChange} />
           ))}
         </div>
       </div>
