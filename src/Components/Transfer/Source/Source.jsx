@@ -13,7 +13,7 @@ function Source({ source, handleCheckBoxChange, handleSelectAllCheckbox }) {
           <div className="source-checkbox">
             <input
               type="checkbox"
-              checked={source.every((d) => d.selected)}
+              checked={source.length > 0 && source.every((d) => d.selected)}
               onChange={(e) =>
                 handleSelectAllCheckbox(SOURCE, e.target.checked)
               }

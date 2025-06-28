@@ -32,6 +32,16 @@ export default function Transfer() {
     );
   };
 
+  const handleTransferBtnClick = (type) => {
+    setData(
+      data.map((d) => {
+        return d.selected && d.type === type
+          ? { ...d, selected: false, type: type == SOURCE ? TARGET : SOURCE }
+          : d;
+      })
+    );
+  };
+
   return (
     <>
       <div className="container">
@@ -40,7 +50,11 @@ export default function Transfer() {
           handleCheckBoxChange={handleCheckboxChange}
           handleSelectAllCheckbox={handleSelectAllCheckbox}
         />
-        <TransferButtons source={source} target={target}/>
+        <TransferButtons
+          source={source}
+          target={target}
+          handleTransferBtnClick={handleTransferBtnClick}
+        />
         <Target
           target={target}
           handleCheckBoxChange={handleCheckboxChange}

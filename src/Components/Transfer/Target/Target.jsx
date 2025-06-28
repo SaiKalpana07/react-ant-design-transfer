@@ -13,7 +13,7 @@ function Target({ target, handleCheckBoxChange, handleSelectAllCheckbox }) {
           <div className="target-checkbox">
             <input
               type="checkbox"
-              checked={target.every((d) => d.selected)}
+              checked={target.length > 0 && target.every((d) => d.selected)}
               onChange={(e) =>
                 handleSelectAllCheckbox(TARGET, e.target.checked)
               }
