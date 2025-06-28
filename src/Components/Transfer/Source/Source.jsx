@@ -3,14 +3,21 @@ import PropTypes from "prop-types";
 import downArrow from "../../../Assets/down-arrow.png";
 import "./Source.css";
 import Item from "../Item/Item";
+import { SOURCE } from "../../constants";
 
-function Source({ source, handleCheckBoxChange }) {
+function Source({ source, handleCheckBoxChange, handleSelectAllCheckbox }) {
   return (
     <>
       <div className="source-container">
         <div className="source-header">
           <div className="source-checkbox">
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              checked={source.every((d) => d.selected)}
+              onChange={(e) =>
+                handleSelectAllCheckbox(SOURCE, e.target.checked)
+              }
+            />
           </div>
           <div className="dropdown-wrapper">
             <div className="source-dropdown">

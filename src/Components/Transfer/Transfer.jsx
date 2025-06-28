@@ -9,7 +9,7 @@ import TransferButtons from "./TransferButtons/TransferButtons.jsx";
 export default function Transfer() {
   const [data, setData] = useState(
     json.map((j) => {
-      return { ...j, selected: true };
+      return { ...j, selected: false };
     })
   );
 
@@ -17,22 +17,35 @@ export default function Transfer() {
   const target = Object.values(data).filter((d) => d.type === TARGET);
 
   const handleCheckboxChange = (id) => {
-    const selectedValue = data.map((d) => {
-      if (d.id === id) {
-        return { ...d, selected: false };
-      } else {
-        return d;
-      }
-    });
-    setData(selectedValue);
+    setData(
+      data.map((d) => {
+        return d.id === id ? { ...d, selected: !d.selected } : d;
+      })
+    );
+  };
+
+  const handleSelectAllCheckbox = (type, selected) => {
+    setData(
+      data.map((d) => {
+        return d.type === type ? { ...d, selected: selected } : d;
+      })
+    );
   };
 
   return (
     <>
       <div className="container">
-        <Source source={source} handleCheckBoxChange={handleCheckboxChange} />
-        <TransferButtons />
-        <Target target={target} />
+        <Source
+          source={source}
+          handleCheckBoxChange={handleCheckboxChange}
+          handleSelectAllCheckbox={handleSelectAllCheckbox}
+        />
+        <TransferButtons source={source} target={target}/>
+        <Target
+          target={target}
+          handleCheckBoxChange={handleCheckboxChange}
+          handleSelectAllCheckbox={handleSelectAllCheckbox}
+        />
       </div>
     </>
   );
