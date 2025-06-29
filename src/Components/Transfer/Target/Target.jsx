@@ -1,11 +1,13 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 import downArrow from "../../../Assets/down-arrow.png";
 import "./Target.css";
 import Item from "../Item/Item";
 import { TARGET } from "../../constants";
 
 function Target({ target, handleCheckBoxChange, handleSelectAllCheckbox }) {
+  const [isTargetMenuOpen, setIsTargetMenuOpen] = useState(false);
+
   return (
     <>
       <div className="target-container">
@@ -19,10 +21,40 @@ function Target({ target, handleCheckBoxChange, handleSelectAllCheckbox }) {
               }
             />
           </div>
-          <div className="dropdown-wrapper">
+          <div
+            className="dropdown-wrapper"
+            onMouseEnter={() => setIsTargetMenuOpen(true)}
+            onMouseLeave={() => setIsTargetMenuOpen(false)}
+          >
             <div className="target-dropdown">
               <img src={downArrow} alt="Dropdown" className="dropdown-icon" />
             </div>
+            {isTargetMenuOpen && (
+              <div className="dropdown-menu" id="dropdown-list">
+                <ul>
+                  {!target.every((d) => d.selected) && (
+                    <li onClick={() => handleSelectAllCheckbox(TARGET, true)}>
+                      Select all data
+                    </li>
+                  )}
+                  {target.every((d) => d.selected) && (
+                    <li onClick={() => handleSelectAllCheckbox(TARGET, false)}>
+                      Deselect all data
+                    </li>
+                  )}
+                  <li
+                    onClick={() =>
+                      handleSelectAllCheckbox(
+                        TARGET,
+                        !target.every((d) => d.selected)
+                      )
+                    }
+                  >
+                    Invert current page
+                  </li>
+                </ul>
+              </div>
+            )}
           </div>
           <div className="target-items-count">
             <p>{target.length} items</p>
