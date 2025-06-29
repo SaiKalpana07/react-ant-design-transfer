@@ -5,6 +5,8 @@
     margin-left:16px;
     border-bottom-color: rgb(223,216,216);
     position: relative;
+    min-height:229px;
+    overflow-y:scroll;
 }
 
 .target-header {
@@ -12,6 +14,7 @@
     align-items:center;
     gap:3px;
     margin-left:5px;
+    padding: 5px;
 }
 
 .target-dropdown {
@@ -38,7 +41,7 @@
 }
 
 .target-label {
-    margin-left:35px;
+    margin-left:60px;
 }
 
 .divider {
@@ -54,6 +57,7 @@
 
 .target-body {
     width:200px;
+    padding: 5px;
 }
 
 .tree-structure {

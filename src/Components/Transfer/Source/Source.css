@@ -5,6 +5,7 @@
     border-bottom-color: rgb(223,216,216);
     position: relative;
     margin:1rem;
+    min-height:229px;
 }
 
 .source-header {
@@ -12,6 +13,12 @@
     align-items:center;
     gap:3px;
     margin-left:5px;
+    padding:5px;
+}
+
+.source-header-container {
+    display: flex;
+    justify-content: space-between;
 }
 
 .source-dropdown {
@@ -19,7 +26,6 @@
     display:inline-block;
     cursor: pointer;
     margin-top:5px;
-    margin-right:1rem;
 }
 
 .dropdown-icon {
@@ -38,7 +44,7 @@
 }
 
 .source-label {
-    margin-left:35px;
+    padding:9px;
 }
 
 .divider {
@@ -54,6 +60,7 @@
 
 .source-body {
     font-size:14px;
+    padding:5px;
 }
 
 .tree-structure {

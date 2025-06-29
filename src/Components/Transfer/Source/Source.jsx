@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import downArrow from "../../../Assets/down-arrow.png";
 import "./Source.css";
-import "../../../../src/style.css"
+import "../../../../src/style.css";
 import Item from "../Item/Item";
 import {
   SOURCE,
@@ -17,6 +17,7 @@ function Source({ source, handleCheckBoxChange, handleSelectAllCheckbox }) {
   return (
     <>
       <div className="source-container">
+        <div className="source-header-container">
         <div className="source-header">
           <div className="source-checkbox">
             <input
@@ -35,37 +36,40 @@ function Source({ source, handleCheckBoxChange, handleSelectAllCheckbox }) {
             <div className="source-dropdown">
               <img src={downArrow} alt="Dropdown" className="dropdown-icon" />
             </div>
-            {isSourceMenuOpen && <div className="dropdown-menu" id="dropdown-list">
-              <ul>
-                {!source.every((d) => d.selected) && (
-                  <li onClick={() => handleSelectAllCheckbox(SOURCE, true)}>
-                    Select all data
+            {isSourceMenuOpen && (
+              <div className="dropdown-menu" id="dropdown-list">
+                <ul>
+                  {!source.every((d) => d.selected) && (
+                    <li onClick={() => handleSelectAllCheckbox(SOURCE, true)}>
+                      Select all data
+                    </li>
+                  )}
+                  {source.every((d) => d.selected) && (
+                    <li onClick={() => handleSelectAllCheckbox(SOURCE, false)}>
+                      Deselect all data
+                    </li>
+                  )}
+                  <li
+                    onClick={() =>
+                      handleSelectAllCheckbox(
+                        SOURCE,
+                        !source.every((d) => d.selected)
+                      )
+                    }
+                  >
+                    Invert current page
                   </li>
-                )}
-                {source.every((d) => d.selected) && (
-                  <li onClick={() => handleSelectAllCheckbox(SOURCE, false)}>
-                    Deselect all data
-                  </li>
-                )}
-                <li
-                  onClick={() =>
-                    handleSelectAllCheckbox(
-                      SOURCE,
-                      !source.every((d) => d.selected)
-                    )
-                  }
-                >
-                  Invert current page
-                </li>
-              </ul>
-            </div>}
+                </ul>
+              </div>
+            )}
           </div>
           <div className="source-items-count">
             <p>{source.length} items</p>
           </div>
-          <div className="source-label">
-            <p>source</p>
-          </div>
+        </div>
+        <div className="source-label">
+          <p>source</p>
+        </div>
         </div>
         <hr className="divider" />
 
