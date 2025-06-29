@@ -5,7 +5,7 @@ body {
   font-size: 14px;
 }
 
-.container {
+.parent-container {
   width: 430px;
   margin-top: 25px;
   border: 1px solid rgb(223, 216, 216);

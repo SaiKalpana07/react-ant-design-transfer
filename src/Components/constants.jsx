@@ -1,5 +1,5 @@
-export const SOURCE = "source"
-export const TARGET = "target"
+export const SOURCE = "Source"
+export const TARGET = "Target"
 export const SELECT_ALL_DATA = "Select all data"
 export const DESELECT_ALL_DATA = "Deselect all data"
 export const INVERT_CURRENT_PAGE = "Invert current page"

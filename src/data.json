@@ -1,15 +1,15 @@
 [
-  { "id": 1, "name": "content1", "type":"source" },
-  { "id": 2, "name": "content2", "type":"source" },
-  { "id": 3, "name": "content3", "type":"source" },
-  { "id": 4, "name": "content4", "type":"source" },
-  { "id": 5, "name": "content5", "type":"source" },
-  { "id": 6, "name": "content6", "type":"source" },
-  { "id": 7, "name": "content7", "type":"target" },
-  { "id": 8, "name": "content8", "type":"target" },
-  { "id": 9, "name": "content9", "type":"target" },
-  { "id": 10, "name": "content10", "type":"target" },
-  { "id": 11, "name": "content11", "type":"target" },
-  { "id": 12, "name": "content12", "type":"target" }
+  { "id": 1, "name": "content1", "type":"Source" },
+  { "id": 2, "name": "content2", "type":"Source" },
+  { "id": 3, "name": "content3", "type":"Source" },
+  { "id": 4, "name": "content4", "type":"Source" },
+  { "id": 5, "name": "content5", "type":"Source" },
+  { "id": 6, "name": "content6", "type":"Source" },
+  { "id": 7, "name": "content7", "type":"Target" },
+  { "id": 8, "name": "content8", "type":"Target" },
+  { "id": 9, "name": "content9", "type":"Target" },
+  { "id": 10, "name": "content10", "type":"Target" },
+  { "id": 11, "name": "content11", "type":"Target" },
+  { "id": 12, "name": "content12", "type":"Target" }
 
 ]

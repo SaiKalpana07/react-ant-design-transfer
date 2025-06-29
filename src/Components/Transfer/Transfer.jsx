@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import json from "../../data.json";
-import Source from "./Source/Source.jsx";
-import Target from "./Target/Target.jsx";
 import { SOURCE, TARGET } from "../constants.jsx";
 import "./Transfer.css";
 import TransferButtons from "./TransferButtons/TransferButtons.jsx";
+import Container from "./Container/Container.jsx";
 
 export default function Transfer() {
   const [data, setData] = useState(
@@ -44,9 +43,10 @@ export default function Transfer() {
 
   return (
     <>
-      <div className="container">
-        <Source
-          source={source}
+      <div className="parent-container">
+        <Container
+          type={SOURCE}
+          dataSource={source}
           handleCheckBoxChange={handleCheckboxChange}
           handleSelectAllCheckbox={handleSelectAllCheckbox}
         />
@@ -55,8 +55,9 @@ export default function Transfer() {
           target={target}
           handleTransferBtnClick={handleTransferBtnClick}
         />
-        <Target
-          target={target}
+        <Container
+          type={TARGET}
+          dataSource={target}
           handleCheckBoxChange={handleCheckboxChange}
           handleSelectAllCheckbox={handleSelectAllCheckbox}
         />
