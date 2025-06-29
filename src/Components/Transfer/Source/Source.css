@@ -4,7 +4,6 @@
     border-radius: 15px;
     border-bottom-color: rgb(223,216,216);
     position: relative;
-    margin:1rem;
     min-height:229px;
 }
 
@@ -61,6 +60,8 @@
 .source-body {
     font-size:14px;
     padding:5px;
+    height:150px;
+    overflow-y: auto;
 }
 
 .tree-structure {

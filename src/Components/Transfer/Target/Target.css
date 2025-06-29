@@ -2,11 +2,9 @@
     width:200px;
     border: 1px solid rgb(223,216,216);
     border-radius: 15px;
-    margin-left:16px;
     border-bottom-color: rgb(223,216,216);
     position: relative;
     min-height:229px;
-    overflow-y:scroll;
 }
 
 .target-header {
@@ -15,6 +13,11 @@
     gap:3px;
     margin-left:5px;
     padding: 5px;
+}
+
+.target-header-container {
+    display: flex;
+    justify-content: space-between;
 }
 
 .target-dropdown {
@@ -41,7 +44,7 @@
 }
 
 .target-label {
-    margin-left:60px;
+    padding:9px;
 }
 
 .divider {
@@ -56,8 +59,9 @@
 }
 
 .target-body {
-    width:200px;
     padding: 5px;
+    height:150px;
+    overflow-y: auto;
 }
 
 .tree-structure {

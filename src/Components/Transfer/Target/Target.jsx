@@ -11,6 +11,7 @@ function Target({ target, handleCheckBoxChange, handleSelectAllCheckbox }) {
   return (
     <>
       <div className="target-container">
+        <div className="target-header-container">
         <div className="target-header">
           <div className="target-checkbox">
             <input
@@ -59,10 +60,12 @@ function Target({ target, handleCheckBoxChange, handleSelectAllCheckbox }) {
           <div className="target-items-count">
             <p>{target.length} items</p>
           </div>
-          <div className="target-label">
-            <p>target</p>
-          </div>
+          
         </div>
+        <div className="target-label">
+            <p>Target</p>
+          </div>
+          </div>
         <hr className="divider" />
 
         <div className="target-body">

@@ -68,7 +68,7 @@ function Source({ source, handleCheckBoxChange, handleSelectAllCheckbox }) {
           </div>
         </div>
         <div className="source-label">
-          <p>source</p>
+          <p>Source</p>
         </div>
         </div>
         <hr className="divider" />
