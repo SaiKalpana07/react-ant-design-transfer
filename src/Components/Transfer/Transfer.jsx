@@ -59,6 +59,7 @@ export default function Transfer({ title, featureDisable = false }) {
           <TransferButtons
             source={source}
             target={target}
+            featureHideTargetBtn={featureHideTargetBtn}
             handleTransferBtnClick={handleTransferBtnClick}
           />
           <Container

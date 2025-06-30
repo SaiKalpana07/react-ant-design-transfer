@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import downArrow from "../../../Assets/down-arrow.png";
 import noData from "../../../Assets/no-data.png";
-
 import "./Container.css";
 import Item from "../Item/Item";
 
@@ -21,12 +20,6 @@ function Container({
     (featureDisable &&
       dataSource.filter((d) => !d.disabled).length > 0 &&
       dataSource.filter((d) => !d.disabled).every((data) => data.selected));
-
-  const deselectAllMenu = dataSource
-    .filter((d) => !d.disabled)
-    .every((data) => data.selected);
-
-  const selectAllMenu = dataSource.every((d) => d.selected);
 
   return (
     <>
@@ -54,20 +47,17 @@ function Container({
               {isMenuOpen && (
                 <div className="dropdown-menu" id="dropdown-list">
                   <ul>
-                    {!selectAllMenu && !deselectAllMenu && (
+                    {!selectAllCheckbox && (
                       <li onClick={() => handleSelectAllCheckbox(type, true)}>
                         Select all data
                       </li>
                     )}
 
-                    {(featureDisable ? !selectAllMenu : selectAllMenu) &&
-                      deselectAllMenu && (
-                        <li
-                          onClick={() => handleSelectAllCheckbox(type, false)}
-                        >
-                          Deselect all data
-                        </li>
-                      )}
+                    {selectAllCheckbox && (
+                      <li onClick={() => handleSelectAllCheckbox(type, false)}>
+                        Deselect all data
+                      </li>
+                    )}
 
                     <li
                       onClick={() =>
