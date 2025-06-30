@@ -5,3 +5,8 @@ li {
     gap: 5px;
     padding: 5px;
 }
+
+.disable-item {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

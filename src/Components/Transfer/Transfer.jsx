@@ -5,7 +5,7 @@ import "./Transfer.css";
 import TransferButtons from "./TransferButtons/TransferButtons.jsx";
 import Container from "./Container/Container.jsx";
 
-export default function Transfer() {
+export default function Transfer({ title, featureDisable = false }) {
   const [data, setData] = useState(
     json.map((j) => {
       return { ...j, selected: false };
@@ -26,7 +26,10 @@ export default function Transfer() {
   const handleSelectAllCheckbox = (type, selected) => {
     setData(
       data.map((d) => {
-        return d.type === type ? { ...d, selected: selected } : d;
+        return (!featureDisable && d.type === type) ||
+          (featureDisable && d.type === type && !d.disabled)
+          ? { ...d, selected: selected }
+          : d;
       })
     );
   };
@@ -44,23 +47,28 @@ export default function Transfer() {
   return (
     <>
       <div className="parent-container">
-        <Container
-          type={SOURCE}
-          dataSource={source}
-          handleCheckBoxChange={handleCheckboxChange}
-          handleSelectAllCheckbox={handleSelectAllCheckbox}
-        />
-        <TransferButtons
-          source={source}
-          target={target}
-          handleTransferBtnClick={handleTransferBtnClick}
-        />
-        <Container
-          type={TARGET}
-          dataSource={target}
-          handleCheckBoxChange={handleCheckboxChange}
-          handleSelectAllCheckbox={handleSelectAllCheckbox}
-        />
+        <p className="title">{title}</p>
+        <div className="parent-container-grouping">
+          <Container
+            type={SOURCE}
+            dataSource={source}
+            featureDisable={featureDisable}
+            handleCheckBoxChange={handleCheckboxChange}
+            handleSelectAllCheckbox={handleSelectAllCheckbox}
+          />
+          <TransferButtons
+            source={source}
+            target={target}
+            handleTransferBtnClick={handleTransferBtnClick}
+          />
+          <Container
+            type={TARGET}
+            dataSource={target}
+            featureDisable={featureDisable}
+            handleCheckBoxChange={handleCheckboxChange}
+            handleSelectAllCheckbox={handleSelectAllCheckbox}
+          />
+        </div>
       </div>
     </>
   );

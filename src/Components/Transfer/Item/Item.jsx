@@ -1,15 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Item.css";
 
-function Item({data,handleCheckBoxChange}) {
-
+function Item({ data, handleCheckBoxChange,featureDisable }) {
+  const disabledClassName = featureDisable && data.disabled ? "disable-item" : ""
   return (
     <>
       <li>
-         <input type="checkbox"  checked={data.selected}
-         onChange={() => handleCheckBoxChange(data.id)}
-        /> 
-        <label>{data.name}</label>
+        <input
+          className={disabledClassName}
+          type="checkbox"
+          checked={data.selected}
+          disabled={featureDisable && data.disabled}
+          onChange={() => handleCheckBoxChange(data.id)}
+        />
+        <label className={disabledClassName}>
+          {data.name}
+        </label>
       </li>
     </>
   );

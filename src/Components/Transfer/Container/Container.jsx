@@ -11,8 +11,22 @@ function Container({
   dataSource,
   handleCheckBoxChange,
   handleSelectAllCheckbox,
+  featureDisable = false,
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const selectAllCheckbox =
+    (!featureDisable &&
+      dataSource.length > 0 &&
+      dataSource.every((d) => d.selected)) ||
+    (featureDisable &&
+      dataSource.filter((d) => !d.disabled).length > 0 &&
+      dataSource.filter((d) => !d.disabled).every((data) => data.selected));
+
+  const deselectAllMenu = dataSource
+    .filter((d) => !d.disabled)
+    .every((data) => data.selected);
+
+  const selectAllMenu = dataSource.every((d) => d.selected);
 
   return (
     <>
@@ -22,10 +36,8 @@ function Container({
             <div className="checkbox">
               <input
                 type="checkbox"
-                checked={
-                  dataSource.length > 0 && dataSource.every((d) => d.selected)
-                }
-                disabled={dataSource.length == 0}
+                checked={selectAllCheckbox}
+                disabled={dataSource.filter((d) => !d.disabled).length == 0}
                 onChange={(e) =>
                   handleSelectAllCheckbox(type, e.target.checked)
                 }
@@ -42,21 +54,26 @@ function Container({
               {isMenuOpen && (
                 <div className="dropdown-menu" id="dropdown-list">
                   <ul>
-                    {!dataSource.every((d) => d.selected) && (
+                    {!selectAllMenu && !deselectAllMenu && (
                       <li onClick={() => handleSelectAllCheckbox(type, true)}>
                         Select all data
                       </li>
                     )}
-                    {dataSource.every((d) => d.selected) && (
-                      <li onClick={() => handleSelectAllCheckbox(type, false)}>
-                        Deselect all data
-                      </li>
-                    )}
+
+                    {(featureDisable ? !selectAllMenu : selectAllMenu) &&
+                      deselectAllMenu && (
+                        <li
+                          onClick={() => handleSelectAllCheckbox(type, false)}
+                        >
+                          Deselect all data
+                        </li>
+                      )}
+
                     <li
                       onClick={() =>
                         handleSelectAllCheckbox(
                           type,
-                          !dataSource.every((d) => d.selected)
+                          !selectAllMenu && !deselectAllMenu
                         )
                       }
                     >
@@ -67,7 +84,10 @@ function Container({
               )}
             </div>
             <div className="items-count">
-              <p>{dataSource.length} items</p>
+              <p>
+                {dataSource.filter((data) => data.selected == true).length}/
+                {dataSource.length} items
+              </p>
             </div>
           </div>
           <div className="label">
@@ -76,15 +96,23 @@ function Container({
         </div>
         <hr className="divider" />
 
-       {dataSource.length > 0 ? (<div className="body">
-          {dataSource.map((s,index) => (
-            <Item key = {index}data={s} handleCheckBoxChange={handleCheckBoxChange} />
-          ))}
-        </div>): (<div className="empty-data-container">
-          <img src={noData} className="empty-icon" />
+        {dataSource.length > 0 ? (
+          <div className="body">
+            {dataSource.map((s, index) => (
+              <Item
+                key={index}
+                data={s}
+                handleCheckBoxChange={handleCheckBoxChange}
+                featureDisable={featureDisable}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="empty-data-container">
+            <img src={noData} className="empty-icon" />
             <p>No data</p>
-          </div>)} 
-       
+          </div>
+        )}
       </div>
     </>
   );

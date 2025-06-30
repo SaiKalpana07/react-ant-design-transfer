@@ -6,13 +6,25 @@ body {
 }
 
 .parent-container {
-  width: 430px;
+  width: 460px;
   margin-top: 25px;
   border: 1px solid rgb(223, 216, 216);
   border-radius: 15px;
   display: flex;
   align-items: center;
-  flex-direction: row;
-  padding: 30px;
+  flex-direction: column;
+  padding: 20px;
   justify-content: center;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 20px;
+  text-decoration: underline;
+  margin-bottom: 15px;
+}
+
+.parent-container-grouping {
+  display: flex;
+  align-items: center;
 }
