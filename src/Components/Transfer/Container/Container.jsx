@@ -10,7 +10,9 @@ function Container({
   dataSource,
   handleCheckBoxChange,
   handleSelectAllCheckbox,
+  handleDeleteItem,
   featureDisable = false,
+  featureMoveTargetToSource = true,
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const selectAllCheckbox =
@@ -26,16 +28,18 @@ function Container({
       <div className="container">
         <div className="header-container">
           <div className="header">
-            <div className="checkbox">
-              <input
-                type="checkbox"
-                checked={selectAllCheckbox}
-                disabled={dataSource.filter((d) => !d.disabled).length == 0}
-                onChange={(e) =>
-                  handleSelectAllCheckbox(type, e.target.checked)
-                }
-              />
-            </div>
+            {featureMoveTargetToSource && (
+              <div className="checkbox">
+                <input
+                  type="checkbox"
+                  checked={selectAllCheckbox}
+                  disabled={dataSource.filter((d) => !d.disabled).length == 0}
+                  onChange={(e) =>
+                    handleSelectAllCheckbox(type, e.target.checked)
+                  }
+                />
+              </div>
+            )}
             <div
               className="dropdown-wrapper"
               onMouseEnter={() => setIsMenuOpen(true)}
@@ -47,28 +51,29 @@ function Container({
               {isMenuOpen && (
                 <div className="dropdown-menu" id="dropdown-list">
                   <ul>
-                    {!selectAllCheckbox && (
+                    {!selectAllCheckbox && featureMoveTargetToSource && (
                       <li onClick={() => handleSelectAllCheckbox(type, true)}>
                         Select all data
                       </li>
                     )}
 
-                    {selectAllCheckbox && (
+                    {selectAllCheckbox && featureMoveTargetToSource &&(
                       <li onClick={() => handleSelectAllCheckbox(type, false)}>
                         Deselect all data
                       </li>
-                    )}
 
-                    <li
+                    )}
+                    {featureMoveTargetToSource &&  (<li
                       onClick={() =>
-                        handleSelectAllCheckbox(
-                          type,
-                          !selectAllMenu && !deselectAllMenu
-                        )
+                        handleSelectAllCheckbox(type, !selectAllCheckbox)
                       }
                     >
                       Invert current page
-                    </li>
+                    </li> )}
+
+                    {!featureMoveTargetToSource && <li>Remove all data</li>}
+
+                    
                   </ul>
                 </div>
               )}
@@ -94,6 +99,8 @@ function Container({
                 data={s}
                 handleCheckBoxChange={handleCheckBoxChange}
                 featureDisable={featureDisable}
+                featureMoveTargetToSource={featureMoveTargetToSource}
+                handleDeleteItem={handleDeleteItem}
               />
             ))}
           </div>

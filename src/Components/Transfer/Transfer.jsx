@@ -5,7 +5,11 @@ import "./Transfer.css";
 import TransferButtons from "./TransferButtons/TransferButtons.jsx";
 import Container from "./Container/Container.jsx";
 
-export default function Transfer({ title, featureDisable = false }) {
+export default function Transfer({
+  title,
+  featureMoveTargetToSource,
+  featureDisable = false,
+}) {
   const [data, setData] = useState(
     json.map((j) => {
       return { ...j, selected: false };
@@ -44,6 +48,14 @@ export default function Transfer({ title, featureDisable = false }) {
     );
   };
 
+  const handleDeleteItem = (id) => {
+    setData(
+      data.map((d) => {
+        return d.id === id ? { ...d, type: SOURCE, selected: false } : d;
+      })
+    );
+  };
+
   return (
     <>
       <div className="parent-container">
@@ -59,15 +71,17 @@ export default function Transfer({ title, featureDisable = false }) {
           <TransferButtons
             source={source}
             target={target}
-            featureHideTargetBtn={featureHideTargetBtn}
+            featureMoveTargetToSource={featureMoveTargetToSource}
             handleTransferBtnClick={handleTransferBtnClick}
           />
           <Container
             type={TARGET}
             dataSource={target}
             featureDisable={featureDisable}
+            featureMoveTargetToSource={featureMoveTargetToSource}
             handleCheckBoxChange={handleCheckboxChange}
             handleSelectAllCheckbox={handleSelectAllCheckbox}
+            handleDeleteItem={handleDeleteItem}
           />
         </div>
       </div>
