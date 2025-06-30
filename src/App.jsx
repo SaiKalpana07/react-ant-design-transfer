@@ -7,7 +7,7 @@ import { BASIC, ONE_WAY } from "./Components/constants.jsx";
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
   <>
-    <Transfer title={ONE_WAY} featureDisable={true} featureMoveTargetToSource={false}  />
+    <Transfer title={ONE_WAY} featureDisable={true} featureMoveTargetToSource={false} enableDeleteIcon={false}  />
     <Transfer title={BASIC} />
   </>
 

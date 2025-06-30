@@ -28,3 +28,60 @@ body {
   display: flex;
   align-items: center;
 }
+
+.bottom-container {
+  margin-top: 16px;
+  display: flex;
+}
+
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 80px;
+  height: 25px;
+}
+
+.toggle input {
+  display: none;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: grey;
+  transition: 0.4s;
+  border-radius: 34px;
+  margin-top:3px;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 3px;
+  background-color: #fff;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #1677ff;
+}
+
+input:checked + .slider::before {
+  transform: translateX(60px);
+}
+
+.toggle-label {
+  color: white;
+  padding: 4px;
+  font-size:13px;
+  margin-left:15px;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}

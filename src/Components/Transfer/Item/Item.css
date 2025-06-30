@@ -27,3 +27,8 @@ li {
 .delete-icon:hover {
   opacity: unset;
 }
+
+.disable-label {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

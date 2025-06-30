@@ -4,6 +4,7 @@ import downArrow from "../../../Assets/down-arrow.png";
 import noData from "../../../Assets/no-data.png";
 import "./Container.css";
 import Item from "../Item/Item";
+import { TARGET } from "../../constants";
 
 function Container({
   type,
@@ -11,7 +12,10 @@ function Container({
   handleCheckBoxChange,
   handleSelectAllCheckbox,
   handleDeleteItem,
+  handleTransferBtnClick,
+  isToggled,
   featureDisable = false,
+  enableDeleteIcon = true,
   featureMoveTargetToSource = true,
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,6 +26,10 @@ function Container({
     (featureDisable &&
       dataSource.filter((d) => !d.disabled).length > 0 &&
       dataSource.filter((d) => !d.disabled).every((data) => data.selected));
+  const numberOfItemsSelected = dataSource.filter(
+    (data) => data.selected == true
+  ).length;
+  const totalNumberOfItems = dataSource.length;
 
   return (
     <>
@@ -33,7 +41,10 @@ function Container({
                 <input
                   type="checkbox"
                   checked={selectAllCheckbox}
-                  disabled={dataSource.filter((d) => !d.disabled).length == 0}
+                  disabled={
+                    dataSource.filter((d) => !d.disabled).length == 0 ||
+                    isToggled
+                  }
                   onChange={(e) =>
                     handleSelectAllCheckbox(type, e.target.checked)
                   }
@@ -57,31 +68,35 @@ function Container({
                       </li>
                     )}
 
-                    {selectAllCheckbox && featureMoveTargetToSource &&(
+                    {selectAllCheckbox && featureMoveTargetToSource && (
                       <li onClick={() => handleSelectAllCheckbox(type, false)}>
                         Deselect all data
                       </li>
-
                     )}
-                    {featureMoveTargetToSource &&  (<li
-                      onClick={() =>
-                        handleSelectAllCheckbox(type, !selectAllCheckbox)
-                      }
-                    >
-                      Invert current page
-                    </li> )}
+                    {featureMoveTargetToSource && (
+                      <li
+                        onClick={() =>
+                          handleSelectAllCheckbox(type, !selectAllCheckbox)
+                        }
+                      >
+                        Invert current page
+                      </li>
+                    )}
 
-                    {!featureMoveTargetToSource && <li>Remove all data</li>}
-
-                    
+                    {!featureMoveTargetToSource && (
+                      <li onClick={() => handleTransferBtnClick(type, false)}>
+                        Remove all data
+                      </li>
+                    )}
                   </ul>
                 </div>
               )}
             </div>
             <div className="items-count">
               <p>
-                {dataSource.filter((data) => data.selected == true).length}/
-                {dataSource.length} items
+                {featureMoveTargetToSource
+                  ? numberOfItemsSelected / totalNumberOfItems
+                  : totalNumberOfItems}
               </p>
             </div>
           </div>
@@ -97,8 +112,10 @@ function Container({
               <Item
                 key={index}
                 data={s}
+                isToggled={isToggled}
                 handleCheckBoxChange={handleCheckBoxChange}
                 featureDisable={featureDisable}
+                enableDeleteIcon={enableDeleteIcon}
                 featureMoveTargetToSource={featureMoveTargetToSource}
                 handleDeleteItem={handleDeleteItem}
               />

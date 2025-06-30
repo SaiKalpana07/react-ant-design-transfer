@@ -9,12 +9,14 @@ export default function Transfer({
   title,
   featureMoveTargetToSource,
   featureDisable = false,
+  enableDeleteIcon = true,
 }) {
   const [data, setData] = useState(
     json.map((j) => {
       return { ...j, selected: false };
     })
   );
+  const [isToggled, setIsToggled] = useState(false);
 
   const source = Object.values(data).filter((d) => d.type === SOURCE);
   const target = Object.values(data).filter((d) => d.type === TARGET);
@@ -38,10 +40,10 @@ export default function Transfer({
     );
   };
 
-  const handleTransferBtnClick = (type) => {
+  const handleTransferBtnClick = (type, selected = true) => {
     setData(
       data.map((d) => {
-        return d.selected && d.type === type
+        return d.selected === selected && d.type === type
           ? { ...d, selected: false, type: type == SOURCE ? TARGET : SOURCE }
           : d;
       })
@@ -56,6 +58,10 @@ export default function Transfer({
     );
   };
 
+  const handleToggle = () => {
+    setIsToggled(!isToggled);
+  };
+
   return (
     <>
       <div className="parent-container">
@@ -65,6 +71,7 @@ export default function Transfer({
             type={SOURCE}
             dataSource={source}
             featureDisable={featureDisable}
+            isToggled={isToggled}
             handleCheckBoxChange={handleCheckboxChange}
             handleSelectAllCheckbox={handleSelectAllCheckbox}
           />
@@ -79,10 +86,26 @@ export default function Transfer({
             dataSource={target}
             featureDisable={featureDisable}
             featureMoveTargetToSource={featureMoveTargetToSource}
+            enableDeleteIcon={enableDeleteIcon}
+            isToggled={isToggled}
             handleCheckBoxChange={handleCheckboxChange}
             handleSelectAllCheckbox={handleSelectAllCheckbox}
             handleDeleteItem={handleDeleteItem}
+            handleTransferBtnClick={handleTransferBtnClick}
           />
+        </div>
+
+        <div className="bottom-container">
+          <label className="toggle">
+            <input
+              type="checkbox"
+              onChange={handleToggle}
+              checked={isToggled}
+            />
+            <span className="slider">
+              <span className="toggle-label">disabled</span>
+            </span>
+          </label>
         </div>
       </div>
     </>
