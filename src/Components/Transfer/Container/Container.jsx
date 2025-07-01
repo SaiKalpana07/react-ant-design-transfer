@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import downArrow from "../../../Assets/down-arrow.png";
 import noData from "../../../Assets/no-data.png";
+import searchIcon from "../../../Assets/search-icon.png";
+import closeIcon from "../../../Assets/delete.png";
 import "./Container.css";
 import Item from "../Item/Item";
-import { TARGET } from "../../constants";
 
 function Container({
   type,
@@ -95,8 +96,8 @@ function Container({
             <div className="items-count">
               <p>
                 {featureMoveTargetToSource
-                  ? numberOfItemsSelected / totalNumberOfItems
-                  : totalNumberOfItems}
+                  ? `${numberOfItemsSelected} / ${totalNumberOfItems}`
+                  : totalNumberOfItems} items
               </p>
             </div>
           </div>
@@ -105,6 +106,11 @@ function Container({
           </div>
         </div>
         <hr className="divider" />
+        {/* <div className="search-box-container">
+          <img src={searchIcon} id="search-icon" />
+          <img src={closeIcon} id="close-icon" />
+          <input type="text" className="search-box" />
+        </div> */}
 
         {dataSource.length > 0 ? (
           <div className="body">
@@ -123,7 +129,7 @@ function Container({
           </div>
         ) : (
           <div className="empty-data-container">
-            <img src={noData} className="empty-icon" />
+            <img src={noData} alt="No data" className="empty-icon" />
             <p>No data</p>
           </div>
         )}

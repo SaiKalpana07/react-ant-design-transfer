@@ -11,10 +11,8 @@ body {
   border: 1px solid rgb(223, 216, 216);
   border-radius: 15px;
   display: flex;
-  align-items: center;
   flex-direction: column;
   padding: 20px;
-  justify-content: center;
 }
 
 .title {
@@ -22,6 +20,8 @@ body {
   font-size: 20px;
   text-decoration: underline;
   margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
 }
 
 .parent-container-grouping {
@@ -31,7 +31,6 @@ body {
 
 .bottom-container {
   margin-top: 16px;
-  display: flex;
 }
 
 .toggle {

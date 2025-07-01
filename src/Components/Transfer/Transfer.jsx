@@ -7,6 +7,7 @@ import Container from "./Container/Container.jsx";
 
 export default function Transfer({
   title,
+  enableToggle,
   featureMoveTargetToSource,
   featureDisable = false,
   enableDeleteIcon = true,
@@ -95,18 +96,20 @@ export default function Transfer({
           />
         </div>
 
-        <div className="bottom-container">
-          <label className="toggle">
-            <input
-              type="checkbox"
-              onChange={handleToggle}
-              checked={isToggled}
-            />
-            <span className="slider">
-              <span className="toggle-label">disabled</span>
-            </span>
-          </label>
-        </div>
+        {enableToggle && (
+          <div className="bottom-container">
+            <label className="toggle">
+              <input
+                type="checkbox"
+                onChange={handleToggle}
+                checked={isToggled}
+              />
+              <span className="slider">
+                <span className="toggle-label">disabled</span>
+              </span>
+            </label>
+          </div>
+        )}
       </div>
     </>
   );
