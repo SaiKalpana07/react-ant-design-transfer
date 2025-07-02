@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import json from "../../data.json";
 import { SOURCE, TARGET } from "../constants.jsx";
 import "./Transfer.css";
@@ -12,15 +12,30 @@ export default function Transfer({
   featureDisable = false,
   enableDeleteIcon = true,
 }) {
-  const [data, setData] = useState(
+  const [isToggled, setIsToggled] = useState(false);
+  const [baseData, setBaseData] = useState(
     json.map((j) => {
       return { ...j, selected: false };
     })
   );
-  const [isToggled, setIsToggled] = useState(false);
+  const [data, setData] = useState(baseData);
+  const [sourceSearchText, setSourceSearchText] = useState("");
+  const [targetSearchText, setTargetSearchText] = useState("");
 
   const source = Object.values(data).filter((d) => d.type === SOURCE);
   const target = Object.values(data).filter((d) => d.type === TARGET);
+
+  useEffect(() => {
+    for (let i = 0; i < data.length; i++) {
+      for (let j = 0; j < baseData.length; j++) {
+        if (data[i].id === baseData[j].id) {
+          baseData[j].selected = data[i].selected;
+          baseData[j].type = data[i].type;
+        }
+      }
+      setBaseData(baseData);
+    }
+  }, [data]);
 
   const handleCheckboxChange = (id) => {
     setData(
@@ -40,6 +55,18 @@ export default function Transfer({
       })
     );
   };
+
+  // const handleInvertCurrentPage = (type,selected,id) => {console.log('type',type,selected,id)
+  //   console.log(data.filter((d) => {
+  //     d.id === id && d.type === type ? {...d, selected: selected == true ? false: true}:d;
+  //   }),'checkData')
+  //   setData(
+  //     data.filter((d) => {
+  //       d.id === id && d.type === type ? {...d, selected: selected === true ? false: true}:d;
+  //     })
+  //   )
+  //   console.log(data,'data')
+  // }
 
   const handleTransferBtnClick = (type, selected = true) => {
     setData(
@@ -63,6 +90,38 @@ export default function Transfer({
     setIsToggled(!isToggled);
   };
 
+  const handleSearch = (searchValue, type) => {
+    const existingData = baseData;
+    if (type == SOURCE) setSourceSearchText(searchValue);
+    else setTargetSearchText(searchValue);
+
+    if (sourceSearchText === "" && targetSearchText === "") {
+      setData(existingData);
+      return;
+    }
+
+    let filteredData = existingData.filter((d) => {
+      return (
+        (d.type === SOURCE &&
+          sourceSearchText != "" &&
+          d.name.includes(sourceSearchText.toLowerCase())) ||
+        (d.type === SOURCE && sourceSearchText === "") ||
+        (d.type === TARGET &&
+          targetSearchText != "" &&
+          d.name.includes(targetSearchText.toLowerCase())) ||
+        (d.type === TARGET && targetSearchText === "")
+      );
+    });
+    setData(filteredData);
+  };
+
+  const handleClearSearch = () => {
+    console.log('base',baseData)
+    setData(baseData);
+    console.log('base1',baseData)
+
+  };
+
   return (
     <>
       <div className="parent-container">
@@ -75,6 +134,8 @@ export default function Transfer({
             isToggled={isToggled}
             handleCheckBoxChange={handleCheckboxChange}
             handleSelectAllCheckbox={handleSelectAllCheckbox}
+            handleSearch={handleSearch}
+            handleClearSearch={handleClearSearch}
           />
           <TransferButtons
             source={source}
@@ -93,6 +154,8 @@ export default function Transfer({
             handleSelectAllCheckbox={handleSelectAllCheckbox}
             handleDeleteItem={handleDeleteItem}
             handleTransferBtnClick={handleTransferBtnClick}
+            handleSearch={handleSearch}
+            handleClearSearch={handleClearSearch}
           />
         </div>
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import downArrow from "../../../Assets/down-arrow.png";
 import noData from "../../../Assets/no-data.png";
@@ -15,11 +15,15 @@ function Container({
   handleDeleteItem,
   handleTransferBtnClick,
   isToggled,
+  handleSearch,
+  handleClearSearch,
   featureDisable = false,
   enableDeleteIcon = true,
   featureMoveTargetToSource = true,
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchText, setSearchText] = useState("");
+
   const selectAllCheckbox =
     (!featureDisable &&
       dataSource.length > 0 &&
@@ -32,6 +36,24 @@ function Container({
   ).length;
   const totalNumberOfItems = dataSource.length;
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+    handleSearchTextChange(searchText, type);
+    }, 10);
+    return () => clearTimeout(timer);
+  }, [searchText,dataSource]);
+
+
+  const handleSearchTextChange = (e, type) => {
+    handleSearch(e, type);
+    setSearchText(e);
+  };
+
+  const handleClearSearchText = () => {
+    setSearchText("");
+    handleClearSearch();
+  };
+
   return (
     <>
       <div className="container">
@@ -43,8 +65,9 @@ function Container({
                   type="checkbox"
                   checked={selectAllCheckbox}
                   disabled={
-                    dataSource.filter((d) => !d.disabled).length == 0 ||
-                    isToggled
+                    featureDisable
+                      ? dataSource.filter((d) => !d.disabled).length === 0
+                      : dataSource.length === 0 || isToggled
                   }
                   onChange={(e) =>
                     handleSelectAllCheckbox(type, e.target.checked)
@@ -77,7 +100,11 @@ function Container({
                     {featureMoveTargetToSource && (
                       <li
                         onClick={() =>
-                          handleSelectAllCheckbox(type, !selectAllCheckbox)
+                          handleSelectAllCheckbox(
+                            type,
+                            !selectAllCheckbox,
+                            dataSource.map((d) => d.id)
+                          )
                         }
                       >
                         Invert current page
@@ -97,7 +124,8 @@ function Container({
               <p>
                 {featureMoveTargetToSource
                   ? `${numberOfItemsSelected} / ${totalNumberOfItems}`
-                  : totalNumberOfItems} items
+                  : totalNumberOfItems}{" "}
+                items
               </p>
             </div>
           </div>
@@ -106,11 +134,24 @@ function Container({
           </div>
         </div>
         <hr className="divider" />
-        {/* <div className="search-box-container">
-          <img src={searchIcon} id="search-icon" />
-          <img src={closeIcon} id="close-icon" />
-          <input type="text" className="search-box" />
-        </div> */}
+        <div className="search-box-container">
+          <img src={searchIcon} id="search-icon" alt="search" />
+          {searchText.length > 0 && (
+            <img
+              src={closeIcon}
+              id="close-icon"
+              alt="close"
+              onClick={handleClearSearchText}
+            />
+          )}
+          <input
+            type="text"
+            className="search-box"
+            placeholder="Search here"
+            value={searchText}
+            onChange={(e) => handleSearchTextChange(e.target.value, type)}
+          />
+        </div>
 
         {dataSource.length > 0 ? (
           <div className="body">

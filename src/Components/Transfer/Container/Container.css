@@ -51,10 +51,46 @@
   border: 0.5px solid rgb(247, 240, 245);
 }
 
-.search-box {
+.search-box-container {
   position: relative;
   width: 100%;
   display: flex;
+}
+
+#search-icon {
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  transform: translateY(-50%);
+  color: #888;
+  z-index: 1;
+  width: 5%;
+  height: 10px;
+}
+
+#close-icon {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  z-index: 1;
+  width: 10%;
+  height: 20px;
+}
+
+.search-box-container {
+  position: relative;
+  width: 85%;
+  display: flex;
+  margin:15px;
+}
+
+.search-box {
+  height: 30px;
+  border-radius: 4px;
+  border:1px solid #ccc;
+  padding-left:25px;
+  width:100%;
 }
 
 .body {
