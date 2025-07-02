@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import json from "../../data.json";
-import { SOURCE, TARGET } from "../constants.jsx";
+import {
+  SOURCE,
+  TARGET,
+  LEFT_RELOAD_BUTTON_NAME,
+  RIGHT_RELOAD_BUTTON_NAME,
+  LEFT_RELOAD_BUTTON_CLASSNAME,
+  RIGHT_RELOAD_BUTTON_CLASSNAME,
+} from "../constants.jsx";
 import "./Transfer.css";
 import TransferButtons from "./TransferButtons/TransferButtons.jsx";
 import Container from "./Container/Container.jsx";
@@ -9,16 +16,18 @@ export default function Transfer({
   title,
   enableToggle,
   featureMoveTargetToSource,
+  enableReloadBtn = false,
   featureDisable = false,
   enableDeleteIcon = true,
 }) {
+  const jsonData = json.map((j) => {
+    return { ...j, selected: false };
+  });
+
   const [isToggled, setIsToggled] = useState(false);
-  const [baseData, setBaseData] = useState(
-    json.map((j) => {
-      return { ...j, selected: false };
-    })
-  );
-  const [data, setData] = useState(baseData);
+  const [rootData, setRootData] = useState(structuredClone(jsonData));
+  const [baseData, setBaseData] = useState(structuredClone(rootData));
+  const [data, setData] = useState(structuredClone(baseData));
   const [sourceSearchText, setSourceSearchText] = useState("");
   const [targetSearchText, setTargetSearchText] = useState("");
 
@@ -32,8 +41,15 @@ export default function Transfer({
           baseData[j].selected = data[i].selected;
           baseData[j].type = data[i].type;
         }
+
+        for (let k = 0; k < rootData.length; k++) {
+          if (baseData[j].id === rootData[k].id) {
+            rootData[k].selected = baseData[j].selected;
+          }
+        }
       }
       setBaseData(baseData);
+      setRootData(rootData);
     }
   }, [data]);
 
@@ -56,17 +72,13 @@ export default function Transfer({
     );
   };
 
-  // const handleInvertCurrentPage = (type,selected,id) => {console.log('type',type,selected,id)
-  //   console.log(data.filter((d) => {
-  //     d.id === id && d.type === type ? {...d, selected: selected == true ? false: true}:d;
-  //   }),'checkData')
-  //   setData(
-  //     data.filter((d) => {
-  //       d.id === id && d.type === type ? {...d, selected: selected === true ? false: true}:d;
-  //     })
-  //   )
-  //   console.log(data,'data')
-  // }
+  const handleInvertCurrentPage = (type) => {
+    setData(
+      data.map((d) => {
+        return d.type === type ? { ...d, selected: !d.selected } : d;
+      })
+    );
+  };
 
   const handleTransferBtnClick = (type, selected = true) => {
     setData(
@@ -116,10 +128,11 @@ export default function Transfer({
   };
 
   const handleClearSearch = () => {
-    console.log('base',baseData)
     setData(baseData);
-    console.log('base1',baseData)
+  };
 
+  const handleReloadBtnClick = () => {
+    setData(rootData);
   };
 
   return (
@@ -132,10 +145,15 @@ export default function Transfer({
             dataSource={source}
             featureDisable={featureDisable}
             isToggled={isToggled}
+            enableReloadBtn={enableReloadBtn}
+            reloadBtnClassName={LEFT_RELOAD_BUTTON_CLASSNAME}
+            reloadBtnName={LEFT_RELOAD_BUTTON_NAME}
             handleCheckBoxChange={handleCheckboxChange}
             handleSelectAllCheckbox={handleSelectAllCheckbox}
             handleSearch={handleSearch}
             handleClearSearch={handleClearSearch}
+            handleInvertCurrentPage={handleInvertCurrentPage}
+            handleReloadBtnClick={handleReloadBtnClick}
           />
           <TransferButtons
             source={source}
@@ -150,12 +168,17 @@ export default function Transfer({
             featureMoveTargetToSource={featureMoveTargetToSource}
             enableDeleteIcon={enableDeleteIcon}
             isToggled={isToggled}
+            enableReloadBtn={enableReloadBtn}
+            reloadBtnClassName={RIGHT_RELOAD_BUTTON_CLASSNAME}
+            reloadBtnName={RIGHT_RELOAD_BUTTON_NAME}
             handleCheckBoxChange={handleCheckboxChange}
             handleSelectAllCheckbox={handleSelectAllCheckbox}
             handleDeleteItem={handleDeleteItem}
             handleTransferBtnClick={handleTransferBtnClick}
             handleSearch={handleSearch}
             handleClearSearch={handleClearSearch}
+            handleInvertCurrentPage={handleInvertCurrentPage}
+            handleReloadBtnClick={handleReloadBtnClick}
           />
         </div>
 

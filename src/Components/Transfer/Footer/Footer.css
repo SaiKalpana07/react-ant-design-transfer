@@ -1,0 +1,23 @@
+.left-reload-btn {
+  margin: 10px;
+  padding: 5px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #1f1e1e;
+}
+
+.right-reload-btn {
+  margin: 10px;
+  padding: 5px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #1f1e1e;
+  float: right;
+}
+
+.left-reload-btn:hover,.right-reload-btn:hover {
+  color: #1677ff;
+  border: 1px solid #1677ff;
+}

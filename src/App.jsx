@@ -2,11 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import Transfer from "./Components/Transfer/Transfer.jsx";
 import "./style.css";
-import { BASIC, ONE_WAY, SEARCH } from "./Components/constants.jsx";
+import { ADVANCED, BASIC, ONE_WAY, SEARCH } from "./Components/constants.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
   <>
+    <Transfer title={ADVANCED} enableReloadBtn={true} />
+
     <Transfer title={SEARCH} />
 
     <Transfer

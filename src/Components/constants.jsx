@@ -13,5 +13,11 @@ export const PAGINATION = "Pagination"
 export const TABLE_TRANSFER = "Table transfer"
 export const TREE_TRANSFER = "Tree transfer"
 export const STATUS = "Status"
+export const LEFT_RELOAD_BUTTON_NAME = "Left button reload"
+export const RIGHT_RELOAD_BUTTON_NAME = "Right button reload"
+export const LEFT_RELOAD_BUTTON_CLASSNAME = "left-reload-btn"
+export const RIGHT_RELOAD_BUTTON_CLASSNAME = "right-reload-btn"
+
+
 
 

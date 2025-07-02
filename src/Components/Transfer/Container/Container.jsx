@@ -6,6 +6,7 @@ import searchIcon from "../../../Assets/search-icon.png";
 import closeIcon from "../../../Assets/delete.png";
 import "./Container.css";
 import Item from "../Item/Item";
+import Footer from "../Footer/Footer";
 
 function Container({
   type,
@@ -17,6 +18,11 @@ function Container({
   isToggled,
   handleSearch,
   handleClearSearch,
+  handleInvertCurrentPage,
+  handleReloadBtnClick,
+  enableReloadBtn,
+  reloadBtnClassName,
+  reloadBtnName,
   featureDisable = false,
   enableDeleteIcon = true,
   featureMoveTargetToSource = true,
@@ -31,6 +37,7 @@ function Container({
     (featureDisable &&
       dataSource.filter((d) => !d.disabled).length > 0 &&
       dataSource.filter((d) => !d.disabled).every((data) => data.selected));
+
   const numberOfItemsSelected = dataSource.filter(
     (data) => data.selected == true
   ).length;
@@ -38,11 +45,10 @@ function Container({
 
   useEffect(() => {
     const timer = setTimeout(() => {
-    handleSearchTextChange(searchText, type);
+      handleSearchTextChange(searchText, type);
     }, 10);
     return () => clearTimeout(timer);
-  }, [searchText,dataSource]);
-
+  }, [searchText, dataSource]);
 
   const handleSearchTextChange = (e, type) => {
     handleSearch(e, type);
@@ -98,15 +104,7 @@ function Container({
                       </li>
                     )}
                     {featureMoveTargetToSource && (
-                      <li
-                        onClick={() =>
-                          handleSelectAllCheckbox(
-                            type,
-                            !selectAllCheckbox,
-                            dataSource.map((d) => d.id)
-                          )
-                        }
-                      >
+                      <li onClick={() => handleInvertCurrentPage(type)}>
                         Invert current page
                       </li>
                     )}
@@ -173,6 +171,14 @@ function Container({
             <img src={noData} alt="No data" className="empty-icon" />
             <p>No data</p>
           </div>
+        )}
+        {enableReloadBtn && (
+          <Footer
+            type={type}
+            reloadBtnClassName={reloadBtnClassName}
+            reloadBtnName={reloadBtnName}
+            handleReloadBtnClick={handleReloadBtnClick}
+          />
         )}
       </div>
     </>
