@@ -23,6 +23,7 @@ function Container({
   enableReloadBtn,
   reloadBtnClassName,
   reloadBtnName,
+  enableDescription,
   featureDisable = false,
   enableDeleteIcon = true,
   featureMoveTargetToSource = true,
@@ -158,6 +159,7 @@ function Container({
                 key={index}
                 data={s}
                 isToggled={isToggled}
+                enableDescription={enableDescription}
                 handleCheckBoxChange={handleCheckBoxChange}
                 featureDisable={featureDisable}
                 enableDeleteIcon={enableDeleteIcon}

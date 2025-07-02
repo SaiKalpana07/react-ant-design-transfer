@@ -1,14 +1,14 @@
 [
-  { "id": 1, "name": "content1", "type":"Source","disabled":true },
-  { "id": 2, "name": "content2", "type":"Source","disabled":false },
-  { "id": 3, "name": "content3", "type":"Source","disabled":true },
-  { "id": 4, "name": "content4", "type":"Source","disabled":false },
-  { "id": 5, "name": "content5", "type":"Source","disabled":true },
-  { "id": 6, "name": "content6", "type":"Source","disabled":true },
-  { "id": 7, "name": "content7", "type":"Target","disabled":false },
-  { "id": 8, "name": "content8", "type":"Target","disabled":false },
-  { "id": 9, "name": "content9", "type":"Target","disabled":false },
-  { "id": 10, "name": "content10", "type":"Target" ,"disabled":false},
-  { "id": 11, "name": "content11", "type":"Target" ,"disabled":false},
-  { "id": 12, "name": "content12", "type":"Target" ,"disabled":false}
+  { "id": 1, "name": "content1", "type":"Source","disabled":true,"description":"description of content1" },
+  { "id": 2, "name": "content2", "type":"Source","disabled":false,"description":"description of content2"  },
+  { "id": 3, "name": "content3", "type":"Source","disabled":true ,"description":"description of content3" },
+  { "id": 4, "name": "content4", "type":"Source","disabled":false,"description":"description of content4"  },
+  { "id": 5, "name": "content5", "type":"Source","disabled":true ,"description":"description of content5" },
+  { "id": 6, "name": "content6", "type":"Source","disabled":true ,"description":"description of content6" },
+  { "id": 7, "name": "content7", "type":"Target","disabled":false,"description":"description of content7"  },
+  { "id": 8, "name": "content8", "type":"Target","disabled":false,"description":"description of content8"  },
+  { "id": 9, "name": "content9", "type":"Target","disabled":false,"description":"description of content9"  },
+  { "id": 10, "name": "content10", "type":"Target" ,"disabled":false,"description":"description of content10" },
+  { "id": 11, "name": "content11", "type":"Target" ,"disabled":false,"description":"description of content11" },
+  { "id": 12, "name": "content12", "type":"Target" ,"disabled":false,"description":"description of content12" }
 ]

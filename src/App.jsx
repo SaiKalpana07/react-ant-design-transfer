@@ -2,11 +2,22 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import Transfer from "./Components/Transfer/Transfer.jsx";
 import "./style.css";
-import { ADVANCED, BASIC, ONE_WAY, SEARCH } from "./Components/constants.jsx";
+import {
+  ADVANCED,
+  BASIC,
+  CUSTOM_DATASOURCE,
+  ONE_WAY,
+  PAGINATION,
+  SEARCH,
+} from "./Components/constants.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
   <>
+    <Transfer title={PAGINATION} />
+
+    <Transfer title={CUSTOM_DATASOURCE} enableDescription={true} />
+
     <Transfer title={ADVANCED} enableReloadBtn={true} />
 
     <Transfer title={SEARCH} />

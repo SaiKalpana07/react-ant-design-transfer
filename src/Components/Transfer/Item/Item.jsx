@@ -8,7 +8,8 @@ function Item({
   enableDeleteIcon,
   isToggled,
   featureMoveTargetToSource,
-  handleDeleteItem
+  handleDeleteItem,
+  enableDescription,
 }) {
   const disabledClassName =
     featureDisable && data.disabled ? "disable-item" : "";
@@ -21,14 +22,20 @@ function Item({
             className={disabledClassName}
             type="checkbox"
             checked={data.selected}
-            disabled={featureDisable && data.disabled || isToggled}
+            disabled={(featureDisable && data.disabled) || isToggled}
             onChange={() => handleCheckBoxChange(data.id)}
           />
         )}
-        <label className={`${isToggled ? "disable-label" :disabledClassName}`}>{data.name}</label>
+        <label className={`${isToggled ? "disable-label" : disabledClassName}`}>
+          {data.name}
+          {enableDescription && <span>- {data.description}</span>}
+        </label>
         {!enableDeleteIcon && (
           <span className="delete-icon">
-            <i className="fa-regular fa-trash-can" onClick={() => handleDeleteItem(data.id)}></i>
+            <i
+              className="fa-regular fa-trash-can"
+              onClick={() => handleDeleteItem(data.id)}
+            ></i>
           </span>
         )}
       </li>

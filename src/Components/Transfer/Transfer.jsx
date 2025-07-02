@@ -19,6 +19,7 @@ export default function Transfer({
   enableReloadBtn = false,
   featureDisable = false,
   enableDeleteIcon = true,
+  enableDescription=false,
 }) {
   const jsonData = json.map((j) => {
     return { ...j, selected: false };
@@ -148,6 +149,7 @@ export default function Transfer({
             enableReloadBtn={enableReloadBtn}
             reloadBtnClassName={LEFT_RELOAD_BUTTON_CLASSNAME}
             reloadBtnName={LEFT_RELOAD_BUTTON_NAME}
+            enableDescription={enableDescription}
             handleCheckBoxChange={handleCheckboxChange}
             handleSelectAllCheckbox={handleSelectAllCheckbox}
             handleSearch={handleSearch}
@@ -171,6 +173,7 @@ export default function Transfer({
             enableReloadBtn={enableReloadBtn}
             reloadBtnClassName={RIGHT_RELOAD_BUTTON_CLASSNAME}
             reloadBtnName={RIGHT_RELOAD_BUTTON_NAME}
+            enableDescription={enableDescription}
             handleCheckBoxChange={handleCheckboxChange}
             handleSelectAllCheckbox={handleSelectAllCheckbox}
             handleDeleteItem={handleDeleteItem}
