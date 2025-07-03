@@ -11,6 +11,7 @@ import {
 import "./Transfer.css";
 import TransferButtons from "./TransferButtons/TransferButtons.jsx";
 import Container from "./Container/Container.jsx";
+import PropTypes from "prop-types";
 
 function Transfer({
   title,

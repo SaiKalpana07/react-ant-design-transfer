@@ -34,7 +34,7 @@ function TransferButtons({
   );
 }
 
-TransferButton.propTypes = {
+TransferButtons.propTypes = {
   source:PropTypes.object,
   target:PropTypes.object,
   handleTransferBtnClick:PropTypes.function,
