@@ -44,9 +44,8 @@ function Container({
       dataSource.filter((d) => !d.disabled).length > 0 &&
       dataSource.filter((d) => !d.disabled).every((data) => data.selected));
 
-  const numberOfItemsSelected = dataSource && dataSource.filter(
-    (data) => data.selected == true
-  ).length;
+  const numberOfItemsSelected =
+    dataSource && dataSource.filter((data) => data.selected == true).length;
   const totalNumberOfItems = dataSource.length;
 
   useEffect(() => {
@@ -163,43 +162,43 @@ function Container({
         <hr className="divider" />
         {featureShowSearch && (
           <div className="search-box-container">
-          <img src={searchIcon} id="search-icon" alt="search" />
-          {searchText.length > 0 && (
-            <img
-              src={closeIcon}
-              id="close-icon"
-              alt="close"
-              onClick={handleClearSearchText}
+            <img src={searchIcon} id="search-icon" alt="search" />
+            {searchText.length > 0 && (
+              <img
+                src={closeIcon}
+                id="close-icon"
+                alt="close"
+                onClick={handleClearSearchText}
+              />
+            )}
+            <input
+              type="text"
+              className="search-box"
+              placeholder="Search here"
+              value={searchText}
+              onChange={(e) => handleSearchTextChange(e.target.value, type)}
             />
-          )}
-          <input
-            type="text"
-            className="search-box"
-            placeholder="Search here"
-            value={searchText}
-            onChange={(e) => handleSearchTextChange(e.target.value, type)}
-          />
-        </div>
+          </div>
         )}
 
         {paginatedDataSource.length > 0 ? (
           <div className="body">
-            {!featureStatus && paginatedDataSource.map((s, index) => (
-              <Item
-                key={index}
-                data={s}
-                isToggled={isToggled}
-                enableDescription={enableDescription}
-                handleCheckBoxChange={handleCheckBoxChange}
-                featureDisable={featureDisable}
-                enableDeleteIcon={enableDeleteIcon}
-                featureMoveTargetToSource={featureMoveTargetToSource}
-                handleDeleteItem={handleDeleteItem}
-              />
-            ))}
+            {!featureStatus &&
+              paginatedDataSource.map((s, index) => (
+                <Item
+                  key={index}
+                  data={s}
+                  isToggled={isToggled}
+                  enableDescription={enableDescription}
+                  handleCheckBoxChange={handleCheckBoxChange}
+                  featureDisable={featureDisable}
+                  enableDeleteIcon={enableDeleteIcon}
+                  featureMoveTargetToSource={featureMoveTargetToSource}
+                  handleDeleteItem={handleDeleteItem}
+                />
+              ))}
           </div>
         ) : (
-          
           <div className="empty-data-container">
             <img src={noData} alt="No data" className="empty-icon" />
             <p>No data</p>
@@ -226,27 +225,27 @@ function Container({
 }
 
 Container.propTypes = {
-  type:PropTypes.string,
-  dataSource:PropTypes.object,
-  handleCheckBoxChange:PropTypes.function,
-  handleSelectAllCheckbox:PropTypes.function,
-  handleDeleteItem:PropTypes.function,
-  handleTransferBtnClick:PropTypes.function,
-  isToggled:PropTypes.boolean,
-  handleSearch:PropTypes.function,
-  handleClearSearch:PropTypes.function,
-  handleInvertCurrentPage:PropTypes.function,
-  handleReloadBtnClick:PropTypes.function,
-  enableReloadBtn:PropTypes.boolean,
-  reloadBtnClassName:PropTypes.string,
-  reloadBtnName:PropTypes.string,
-  enableDescription:PropTypes.string,
-  featurePagination:PropTypes.string,
-  featureShowSearch:PropTypes.string,
-  featureStatus:PropTypes.string,
-  featureDisable:PropTypes.string,
-  enableDeleteIcon:PropTypes.string,
-  featureMoveTargetToSource:PropTypes.string,
+  type: PropTypes.string,
+  dataSource: PropTypes.object,
+  handleCheckBoxChange: PropTypes.function,
+  handleSelectAllCheckbox: PropTypes.function,
+  handleDeleteItem: PropTypes.function,
+  handleTransferBtnClick: PropTypes.function,
+  isToggled: PropTypes.boolean,
+  handleSearch: PropTypes.function,
+  handleClearSearch: PropTypes.function,
+  handleInvertCurrentPage: PropTypes.function,
+  handleReloadBtnClick: PropTypes.function,
+  enableReloadBtn: PropTypes.boolean,
+  reloadBtnClassName: PropTypes.string,
+  reloadBtnName: PropTypes.string,
+  enableDescription: PropTypes.string,
+  featurePagination: PropTypes.string,
+  featureShowSearch: PropTypes.string,
+  featureStatus: PropTypes.string,
+  featureDisable: PropTypes.string,
+  enableDeleteIcon: PropTypes.string,
+  featureMoveTargetToSource: PropTypes.string,
 };
 
 export default Container;

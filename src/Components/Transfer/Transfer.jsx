@@ -11,6 +11,7 @@ import {
 import "./Transfer.css";
 import TransferButtons from "./TransferButtons/TransferButtons.jsx";
 import Container from "./Container/Container.jsx";
+import ErrorBoundary from "../ErrorBoundary.jsx";
 import PropTypes from "prop-types";
 
 function Transfer({
@@ -145,6 +146,7 @@ function Transfer({
       <div className="parent-container">
         <p className="title">{title}</p>
         <div className="parent-container-grouping">
+          <ErrorBoundary >
           <Container
             type={SOURCE}
             dataSource={featureStatus ? [] : source}
@@ -193,6 +195,7 @@ function Transfer({
             handleInvertCurrentPage={handleInvertCurrentPage}
             handleReloadBtnClick={handleReloadBtnClick}
           />
+          </ErrorBoundary>
         </div>
 
         {enableToggle && (

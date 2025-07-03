@@ -10,7 +10,6 @@ import {
   ONE_WAY,
   PAGINATION,
   SEARCH,
-  WARNING_STATUS,
 } from "./Components/constants.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
