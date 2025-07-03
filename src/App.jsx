@@ -14,7 +14,7 @@ import {
 } from "./Components/constants.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  // <React.StrictMode>
+  <React.StrictMode>
   <>
     <>
       <Transfer title={ERROR_STATUS} featureStatus={true} />
@@ -39,5 +39,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     ;
   </>
 
-  // </React.StrictMode>
+</React.StrictMode>
 );

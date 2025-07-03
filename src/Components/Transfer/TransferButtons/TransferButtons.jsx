@@ -1,6 +1,8 @@
 import React from "react";
 import "./TransferButtons.css";
 import { SOURCE, TARGET } from "../../constants";
+import PropTypes from "prop-types";
+
 
 function TransferButtons({
   source,
@@ -31,5 +33,12 @@ function TransferButtons({
     </>
   );
 }
+
+TransferButton.propTypes = {
+  source:PropTypes.object,
+  target:PropTypes.object,
+  handleTransferBtnClick:PropTypes.function,
+  featureMoveTargetToSource:PropTypes.boolean,
+};
 
 export default TransferButtons;

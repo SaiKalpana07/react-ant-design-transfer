@@ -3,6 +3,7 @@ import "./Footer.css";
 import leftArrow from "../../../Assets/left.png";
 import rightArrow from "../../../Assets/right.png";
 import divider from "../../../Assets/slash.png";
+import PropTypes from "prop-types";
 
 function Footer({
   enableReloadBtn,
@@ -54,4 +55,17 @@ function Footer({
     </>
   );
 }
+
+Footer.propTypes = {
+  enableReloadBtn:PropTypes.boolean,
+  handleReloadBtnClick:PropTypes.function,
+  reloadBtnClassName:PropTypes.string,
+  reloadBtnName:PropTypes.string,
+  featurePagination:PropTypes.boolean,
+  currentPage:PropTypes.number,
+  totalPageCount:PropTypes.number,
+  handlePrev:PropTypes.function,
+  handleNext:PropTypes.function,
+  handlePagination:PropTypes.function,
+};
 export default Footer;

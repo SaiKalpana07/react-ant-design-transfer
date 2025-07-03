@@ -1,5 +1,6 @@
 import React from "react";
 import "./Item.css";
+import PropTypes from "prop-types";
 
 function Item({
   data,
@@ -42,5 +43,15 @@ function Item({
     </>
   );
 }
+
+Item.propTypes = {
+  data: PropTypes.object,
+  featureDisable: PropTypes.boolean,
+  isToggled: PropTypes.boolean,
+  enableDescription: PropTypes.boolean,
+  handleDeleteItem: PropTypes.function,
+  handleCheckBoxChange: PropTypes.function,
+  featureMoveTargetToSource: PropTypes.function,
+};
 
 export default Item;

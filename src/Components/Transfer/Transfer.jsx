@@ -12,7 +12,7 @@ import "./Transfer.css";
 import TransferButtons from "./TransferButtons/TransferButtons.jsx";
 import Container from "./Container/Container.jsx";
 
-export default function Transfer({
+function Transfer({
   title,
   enableToggle,
   featureMoveTargetToSource,
@@ -211,4 +211,20 @@ export default function Transfer({
       </div>
     </>
   );
+ 
 }
+
+Transfer.propTypes = {
+  title:PropTypes.string,
+  enableToggle:PropTypes.boolean,
+  featureMoveTargetToSource:PropTypes.boolean,
+  enableReloadBtn:PropTypes.boolean,
+  featureDisable:PropTypes.boolean,
+  enableDeleteIcon:PropTypes.boolean,
+  enableDescription:PropTypes.boolean,
+  featurePagination:PropTypes.boolean,
+  featureStatus:PropTypes.boolean,
+  featureShowSearch:PropTypes.boolean,
+};
+
+export default Transfer;

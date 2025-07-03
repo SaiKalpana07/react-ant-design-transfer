@@ -226,7 +226,27 @@ function Container({
 }
 
 Container.propTypes = {
-  source: PropTypes.array,
+  type:PropTypes.string,
+  dataSource:PropTypes.object,
+  handleCheckBoxChange:PropTypes.function,
+  handleSelectAllCheckbox:PropTypes.function,
+  handleDeleteItem:PropTypes.function,
+  handleTransferBtnClick:PropTypes.function,
+  isToggled:PropTypes.boolean,
+  handleSearch:PropTypes.function,
+  handleClearSearch:PropTypes.function,
+  handleInvertCurrentPage:PropTypes.function,
+  handleReloadBtnClick:PropTypes.function,
+  enableReloadBtn:PropTypes.boolean,
+  reloadBtnClassName:PropTypes.string,
+  reloadBtnName:PropTypes.string,
+  enableDescription:PropTypes.string,
+  featurePagination:PropTypes.string,
+  featureShowSearch:PropTypes.string,
+  featureStatus:PropTypes.string,
+  featureDisable:PropTypes.string,
+  enableDeleteIcon:PropTypes.string,
+  featureMoveTargetToSource:PropTypes.string,
 };
 
 export default Container;
