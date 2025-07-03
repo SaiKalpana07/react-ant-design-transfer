@@ -6,30 +6,37 @@ import {
   ADVANCED,
   BASIC,
   CUSTOM_DATASOURCE,
+  ERROR_STATUS,
   ONE_WAY,
   PAGINATION,
   SEARCH,
+  WARNING_STATUS,
 } from "./Components/constants.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
   <>
-    <Transfer title={PAGINATION} />
+    <>
+      <Transfer title={ERROR_STATUS} featureStatus={true} />
 
-    <Transfer title={CUSTOM_DATASOURCE} enableDescription={true} />
+      <Transfer title={PAGINATION} featureShowSearch={true} featurePagination={true} />
 
-    <Transfer title={ADVANCED} enableReloadBtn={true} />
+      <Transfer title={CUSTOM_DATASOURCE} featureShowSearch={true} enableDescription={true} />
 
-    <Transfer title={SEARCH} />
+      <Transfer title={ADVANCED} featureShowSearch={true} enableReloadBtn={true} />
 
-    <Transfer
-      title={ONE_WAY}
-      featureDisable={true}
-      featureMoveTargetToSource={false}
-      enableDeleteIcon={false}
-      enableToggle={true}
-    />
-    <Transfer title={BASIC} />
+      <Transfer title={SEARCH} featureShowSearch={true} />
+
+      <Transfer
+        title={ONE_WAY}
+        featureDisable={true}
+        featureMoveTargetToSource={false}
+        enableDeleteIcon={false}
+        enableToggle={true}
+      />
+      <Transfer title={BASIC} />
+    </>
+    ;
   </>
 
   // </React.StrictMode>

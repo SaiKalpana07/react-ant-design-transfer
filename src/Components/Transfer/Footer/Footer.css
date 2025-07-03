@@ -17,7 +17,56 @@
   float: right;
 }
 
-.left-reload-btn:hover,.right-reload-btn:hover {
+.left-reload-btn:hover,
+.right-reload-btn:hover {
   color: #1677ff;
   border: 1px solid #1677ff;
+}
+
+.pagination {
+  display: flex;
+  gap: 5px;
+  margin: 5px;
+  align-items: center;
+}
+
+.arrow-btn {
+  border: none;
+  background-color: white;
+}
+
+.left-arrow {
+  height: 20px;
+  width: 22px;
+}
+
+.right-arrow {
+  height: 20px;
+  width: 22px;
+  display: flex;
+  cursor: pointer;
+}
+
+.frontSlash {
+  height: 15px;
+  width: 11px;
+  border: none;
+}
+
+.footer-textbox {
+  width: 50px;
+  height: 22px;
+  text-align: center;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.footer-textbox:hover {
+  border: 1px solid #1677ff;
+}
+
+.disable-button {
+  opacity: 0.6;
+  border: none;
+  background-color: white;
 }

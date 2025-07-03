@@ -1,23 +1,20 @@
-export const SOURCE = "Source"
-export const TARGET = "Target"
-export const SELECT_ALL_DATA = "Select all data"
-export const DESELECT_ALL_DATA = "Deselect all data"
-export const INVERT_CURRENT_PAGE = "Invert current page"
-export const REMOVE_ALL_DATA = "Remove all data"
-export const BASIC = "Basic"
-export const ONE_WAY = "One way"
-export const SEARCH = "Search"
-export const ADVANCED = "Advanced"
-export const CUSTOM_DATASOURCE = "Custom datasource"
-export const PAGINATION = "Pagination"
-export const TABLE_TRANSFER = "Table transfer"
-export const TREE_TRANSFER = "Tree transfer"
-export const STATUS = "Status"
-export const LEFT_RELOAD_BUTTON_NAME = "Left button reload"
-export const RIGHT_RELOAD_BUTTON_NAME = "Right button reload"
-export const LEFT_RELOAD_BUTTON_CLASSNAME = "left-reload-btn"
-export const RIGHT_RELOAD_BUTTON_CLASSNAME = "right-reload-btn"
-
-
-
-
+export const SOURCE = "Source";
+export const TARGET = "Target";
+export const SELECT_ALL_DATA = "Select all data";
+export const DESELECT_ALL_DATA = "Deselect all data";
+export const INVERT_CURRENT_PAGE = "Invert current page";
+export const REMOVE_ALL_DATA = "Remove all data";
+export const BASIC = "Basic";
+export const ONE_WAY = "One way";
+export const SEARCH = "Search";
+export const ADVANCED = "Advanced";
+export const CUSTOM_DATASOURCE = "Custom datasource";
+export const PAGINATION = "Pagination";
+export const TABLE_TRANSFER = "Table transfer";
+export const TREE_TRANSFER = "Tree transfer";
+export const ERROR_STATUS = "Error Status";
+export const WARNING_STATUS = "Warning Status";
+export const LEFT_RELOAD_BUTTON_NAME = "Left button reload";
+export const RIGHT_RELOAD_BUTTON_NAME = "Right button reload";
+export const LEFT_RELOAD_BUTTON_CLASSNAME = "left-reload-btn";
+export const RIGHT_RELOAD_BUTTON_CLASSNAME = "right-reload-btn";

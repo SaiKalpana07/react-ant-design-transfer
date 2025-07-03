@@ -19,7 +19,10 @@ export default function Transfer({
   enableReloadBtn = false,
   featureDisable = false,
   enableDeleteIcon = true,
-  enableDescription=false,
+  enableDescription = false,
+  featurePagination = false,
+  featureStatus = false,
+  featureShowSearch = false,
 }) {
   const jsonData = json.map((j) => {
     return { ...j, selected: false };
@@ -143,13 +146,16 @@ export default function Transfer({
         <div className="parent-container-grouping">
           <Container
             type={SOURCE}
-            dataSource={source}
+            dataSource={featureStatus ? [] : source}
+            featureStatus={featureStatus}
             featureDisable={featureDisable}
+            featureShowSearch={featureShowSearch}
             isToggled={isToggled}
             enableReloadBtn={enableReloadBtn}
             reloadBtnClassName={LEFT_RELOAD_BUTTON_CLASSNAME}
             reloadBtnName={LEFT_RELOAD_BUTTON_NAME}
             enableDescription={enableDescription}
+            featurePagination={featurePagination}
             handleCheckBoxChange={handleCheckboxChange}
             handleSelectAllCheckbox={handleSelectAllCheckbox}
             handleSearch={handleSearch}
@@ -165,8 +171,10 @@ export default function Transfer({
           />
           <Container
             type={TARGET}
-            dataSource={target}
+            dataSource={featureStatus ? [] : target}
+            featureStatus={featureStatus}
             featureDisable={featureDisable}
+            featureShowSearch={featureShowSearch}
             featureMoveTargetToSource={featureMoveTargetToSource}
             enableDeleteIcon={enableDeleteIcon}
             isToggled={isToggled}
@@ -174,6 +182,7 @@ export default function Transfer({
             reloadBtnClassName={RIGHT_RELOAD_BUTTON_CLASSNAME}
             reloadBtnName={RIGHT_RELOAD_BUTTON_NAME}
             enableDescription={enableDescription}
+            featurePagination={featurePagination}
             handleCheckBoxChange={handleCheckboxChange}
             handleSelectAllCheckbox={handleSelectAllCheckbox}
             handleDeleteItem={handleDeleteItem}

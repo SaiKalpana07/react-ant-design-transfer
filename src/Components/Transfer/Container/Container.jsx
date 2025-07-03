@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import downArrow from "../../../Assets/down-arrow.png";
 import noData from "../../../Assets/no-data.png";
 import searchIcon from "../../../Assets/search-icon.png";
 import closeIcon from "../../../Assets/delete.png";
+
 import "./Container.css";
 import Item from "../Item/Item";
 import Footer from "../Footer/Footer";
@@ -24,12 +25,16 @@ function Container({
   reloadBtnClassName,
   reloadBtnName,
   enableDescription,
+  featurePagination,
+  featureShowSearch,
+  featureStatus = false,
   featureDisable = false,
   enableDeleteIcon = true,
   featureMoveTargetToSource = true,
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const selectAllCheckbox =
     (!featureDisable &&
@@ -39,7 +44,7 @@ function Container({
       dataSource.filter((d) => !d.disabled).length > 0 &&
       dataSource.filter((d) => !d.disabled).every((data) => data.selected));
 
-  const numberOfItemsSelected = dataSource.filter(
+  const numberOfItemsSelected = dataSource && dataSource.filter(
     (data) => data.selected == true
   ).length;
   const totalNumberOfItems = dataSource.length;
@@ -51,6 +56,14 @@ function Container({
     return () => clearTimeout(timer);
   }, [searchText, dataSource]);
 
+  const perPageSize = 5;
+  const paginatedDataSource = useMemo(() => {
+    if (!featurePagination) return dataSource;
+
+    const start = (currentPage - 1) * perPageSize;
+    return dataSource.slice(start, start + perPageSize);
+  }, [dataSource, currentPage]);
+
   const handleSearchTextChange = (e, type) => {
     handleSearch(e, type);
     setSearchText(e);
@@ -61,9 +74,24 @@ function Container({
     handleClearSearch();
   };
 
+  const handlePrev = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
+
+  const handleNext = () => {
+    setCurrentPage((prev) => Math.min(prev + 1, totalPageCount));
+  };
+
+  const totalPageCount = useMemo(
+    () => Math.ceil(dataSource.length / perPageSize),
+    [dataSource]
+  );
+
+  const handlePagination = (e) => {
+    const page = Number(e.target.value);
+    setCurrentPage(page);
+  };
   return (
     <>
-      <div className="container">
+      <div className={featureStatus ? "error-status" : "container"}>
         <div className="header-container">
           <div className="header">
             {featureMoveTargetToSource && (
@@ -133,7 +161,8 @@ function Container({
           </div>
         </div>
         <hr className="divider" />
-        <div className="search-box-container">
+        {featureShowSearch && (
+          <div className="search-box-container">
           <img src={searchIcon} id="search-icon" alt="search" />
           {searchText.length > 0 && (
             <img
@@ -151,10 +180,11 @@ function Container({
             onChange={(e) => handleSearchTextChange(e.target.value, type)}
           />
         </div>
+        )}
 
-        {dataSource.length > 0 ? (
+        {paginatedDataSource.length > 0 ? (
           <div className="body">
-            {dataSource.map((s, index) => (
+            {!featureStatus && paginatedDataSource.map((s, index) => (
               <Item
                 key={index}
                 data={s}
@@ -169,14 +199,22 @@ function Container({
             ))}
           </div>
         ) : (
+          
           <div className="empty-data-container">
             <img src={noData} alt="No data" className="empty-icon" />
             <p>No data</p>
           </div>
         )}
-        {enableReloadBtn && (
+        {(enableReloadBtn || featurePagination) && (
           <Footer
             type={type}
+            currentPage={currentPage}
+            totalPageCount={totalPageCount}
+            handlePrev={handlePrev}
+            handleNext={handleNext}
+            handlePagination={handlePagination}
+            enableReloadBtn={enableReloadBtn}
+            featurePagination={featurePagination}
             reloadBtnClassName={reloadBtnClassName}
             reloadBtnName={reloadBtnName}
             handleReloadBtnClick={handleReloadBtnClick}
