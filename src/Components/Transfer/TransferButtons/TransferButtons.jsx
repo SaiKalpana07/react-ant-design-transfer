@@ -7,9 +7,11 @@ import PropTypes from "prop-types";
 function TransferButtons({
   source,
   target,
+  isOneWayToggled,
   handleTransferBtnClick,
   featureMoveTargetToSource = true,
 }) {
+  
   return (
     <>
       <div className="transfer-buttons">
@@ -20,7 +22,7 @@ function TransferButtons({
         >
           {">"}
         </button>
-        {featureMoveTargetToSource && (
+        {(featureMoveTargetToSource && !isOneWayToggled) && (
           <button
             className={"target-btn"}
             disabled={!target.some((s) => s.selected)}

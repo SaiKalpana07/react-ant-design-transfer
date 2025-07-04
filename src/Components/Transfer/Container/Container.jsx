@@ -17,6 +17,7 @@ function Container({
   handleDeleteItem,
   handleTransferBtnClick,
   isToggled,
+  isOneWayToggled,
   handleSearch,
   handleClearSearch,
   handleInvertCurrentPage,
@@ -85,15 +86,18 @@ function Container({
   );
 
   const handlePagination = (e) => {
-    const page = Number(e.target.value);
+    let page = Number(e.target.value);
+    if (page === "" && page < 1) page = 1;
+    else if (page > totalPageCount) page = totalPageCount;
     setCurrentPage(page);
   };
+
   return (
     <>
       <div className={featureStatus ? "error-status" : "container"}>
         <div className="header-container">
           <div className="header">
-            {featureMoveTargetToSource && (
+            {featureMoveTargetToSource && !isOneWayToggled &&(
               <div className="checkbox">
                 <input
                   type="checkbox"
@@ -120,26 +124,45 @@ function Container({
               {isMenuOpen && (
                 <div className="dropdown-menu" id="dropdown-list">
                   <ul>
-                    {!selectAllCheckbox && featureMoveTargetToSource && (
+                    {!selectAllCheckbox && featureMoveTargetToSource && !isOneWayToggled && (
                       <li onClick={() => handleSelectAllCheckbox(type, true)}>
                         Select all data
                       </li>
                     )}
 
-                    {selectAllCheckbox && featureMoveTargetToSource && (
+                    {selectAllCheckbox && featureMoveTargetToSource && !isOneWayToggled &&(
                       <li onClick={() => handleSelectAllCheckbox(type, false)}>
                         Deselect all data
                       </li>
                     )}
-                    {featureMoveTargetToSource && (
+                    {featureMoveTargetToSource && !isOneWayToggled &&(
                       <li onClick={() => handleInvertCurrentPage(type)}>
                         Invert current page
                       </li>
                     )}
+                    {featurePagination && !isOneWayToggled && (
+                      <li
+                        onClick={() =>
+                          handleSelectAllCheckbox(
+                            type,
+                            true,
+                            paginatedDataSource 
+                          )
+                        }
+                      >
+                        Select current page
+                      </li>
+                    )}
 
-                    {!featureMoveTargetToSource && (
+                    {(!featureMoveTargetToSource || isOneWayToggled) && (
                       <li onClick={() => handleTransferBtnClick(type, false)}>
                         Remove all data
+                      </li>
+                    )}
+
+                    {isOneWayToggled && (
+                      <li onClick={() =>handleTransferBtnClick(type,false,paginatedDataSource)}>
+                        Remove current page
                       </li>
                     )}
                   </ul>
@@ -189,6 +212,7 @@ function Container({
                   key={index}
                   data={s}
                   isToggled={isToggled}
+                  isOneWayToggled={isOneWayToggled}
                   enableDescription={enableDescription}
                   handleCheckBoxChange={handleCheckBoxChange}
                   featureDisable={featureDisable}

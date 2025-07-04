@@ -18,3 +18,6 @@ export const LEFT_RELOAD_BUTTON_NAME = "Left button reload";
 export const RIGHT_RELOAD_BUTTON_NAME = "Right button reload";
 export const LEFT_RELOAD_BUTTON_CLASSNAME = "left-reload-btn";
 export const RIGHT_RELOAD_BUTTON_CLASSNAME = "right-reload-btn";
+export const DISABLED_TOGGLE_NAME = "disabled";
+export const ONE_WAY_TOGGLE_NAME = "one way";
+

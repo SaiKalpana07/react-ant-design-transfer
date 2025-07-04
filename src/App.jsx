@@ -44,6 +44,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           title={PAGINATION}
           featureShowSearch={true}
           featurePagination={true}
+          featureOneWayToggle={true}
         />
 
         <Transfer title={ERROR_STATUS} featureStatus={true} />

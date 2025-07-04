@@ -7,6 +7,8 @@ import {
   RIGHT_RELOAD_BUTTON_NAME,
   LEFT_RELOAD_BUTTON_CLASSNAME,
   RIGHT_RELOAD_BUTTON_CLASSNAME,
+  ONE_WAY_TOGGLE_NAME,
+  DISABLED_TOGGLE_NAME,
 } from "../constants.jsx";
 import "./Transfer.css";
 import TransferButtons from "./TransferButtons/TransferButtons.jsx";
@@ -25,12 +27,14 @@ function Transfer({
   featurePagination = false,
   featureStatus = false,
   featureShowSearch = false,
+  featureOneWayToggle = false,
 }) {
   const jsonData = json.map((j) => {
     return { ...j, selected: false };
   });
 
   const [isToggled, setIsToggled] = useState(false);
+  const [isOneWayToggled, setIsOneWayToggled] = useState(false);
   const [rootData, setRootData] = useState(structuredClone(jsonData));
   const [baseData, setBaseData] = useState(structuredClone(rootData));
   const [data, setData] = useState(structuredClone(baseData));
@@ -67,13 +71,27 @@ function Transfer({
     );
   };
 
-  const handleSelectAllCheckbox = (type, selected) => {
-    setData(
-      data.map((d) => {
+  const handleSelectAllCheckbox = (type, selected, paginatedDataSource) => {
+    if (paginatedDataSource == undefined) {
+      let updatedData = data.map((d) => {
         return (!featureDisable && d.type === type) ||
           (featureDisable && d.type === type && !d.disabled)
           ? { ...d, selected: selected }
           : d;
+      });
+      setData(updatedData);
+    } else {
+      let updatedData = paginatedDataSource.map((d) => {
+        return d.type === type && { ...d, selected: selected };
+      });
+      setData(updatedData);
+    }
+  };
+
+  const handleSelectCurrentPage = (type, selected, data) => {
+    setData(
+      data.map((d) => {
+        return d.type === type && { ...d, selected: selected };
       })
     );
   };
@@ -86,14 +104,30 @@ function Transfer({
     );
   };
 
-  const handleTransferBtnClick = (type, selected = true) => {
-    setData(
-      data.map((d) => {
+  const handleTransferBtnClick = (
+    type,
+    selected = true,
+    paginatedDataSource
+  ) => {
+    if (paginatedDataSource == undefined) {
+      let updatedData = data.map((d) => {
         return d.selected === selected && d.type === type
           ? { ...d, selected: false, type: type == SOURCE ? TARGET : SOURCE }
           : d;
-      })
-    );
+      });
+      setData(updatedData);
+    } else {
+      let updatedData = paginatedDataSource.map((d) => {
+        return (
+          d.type === type && {
+            ...d,
+            selected: false,
+            type: type == SOURCE ? TARGET : SOURCE,
+          }
+        );
+      });
+      setData(updatedData);
+    }
   };
 
   const handleDeleteItem = (id) => {
@@ -106,6 +140,10 @@ function Transfer({
 
   const handleToggle = () => {
     setIsToggled(!isToggled);
+  };
+
+  const handleOneWayToggle = () => {
+    setIsOneWayToggled(!isOneWayToggled);
   };
 
   const handleSearch = (searchValue, type) => {
@@ -146,68 +184,78 @@ function Transfer({
       <div className="parent-container">
         <p className="title">{title}</p>
         <div className="parent-container-grouping">
-          <ErrorBoundary >
-          <Container
-            type={SOURCE}
-            dataSource={featureStatus ? [] : source}
-            featureStatus={featureStatus}
-            featureDisable={featureDisable}
-            featureShowSearch={featureShowSearch}
-            isToggled={isToggled}
-            enableReloadBtn={enableReloadBtn}
-            reloadBtnClassName={LEFT_RELOAD_BUTTON_CLASSNAME}
-            reloadBtnName={LEFT_RELOAD_BUTTON_NAME}
-            enableDescription={enableDescription}
-            featurePagination={featurePagination}
-            handleCheckBoxChange={handleCheckboxChange}
-            handleSelectAllCheckbox={handleSelectAllCheckbox}
-            handleSearch={handleSearch}
-            handleClearSearch={handleClearSearch}
-            handleInvertCurrentPage={handleInvertCurrentPage}
-            handleReloadBtnClick={handleReloadBtnClick}
-          />
-          <TransferButtons
-            source={source}
-            target={target}
-            featureMoveTargetToSource={featureMoveTargetToSource}
-            handleTransferBtnClick={handleTransferBtnClick}
-          />
-          <Container
-            type={TARGET}
-            dataSource={featureStatus ? [] : target}
-            featureStatus={featureStatus}
-            featureDisable={featureDisable}
-            featureShowSearch={featureShowSearch}
-            featureMoveTargetToSource={featureMoveTargetToSource}
-            enableDeleteIcon={enableDeleteIcon}
-            isToggled={isToggled}
-            enableReloadBtn={enableReloadBtn}
-            reloadBtnClassName={RIGHT_RELOAD_BUTTON_CLASSNAME}
-            reloadBtnName={RIGHT_RELOAD_BUTTON_NAME}
-            enableDescription={enableDescription}
-            featurePagination={featurePagination}
-            handleCheckBoxChange={handleCheckboxChange}
-            handleSelectAllCheckbox={handleSelectAllCheckbox}
-            handleDeleteItem={handleDeleteItem}
-            handleTransferBtnClick={handleTransferBtnClick}
-            handleSearch={handleSearch}
-            handleClearSearch={handleClearSearch}
-            handleInvertCurrentPage={handleInvertCurrentPage}
-            handleReloadBtnClick={handleReloadBtnClick}
-          />
+          <ErrorBoundary>
+            <Container
+              type={SOURCE}
+              dataSource={featureStatus ? [] : source}
+              featureStatus={featureStatus}
+              featureDisable={featureDisable}
+              featureShowSearch={featureShowSearch}
+              isToggled={isToggled}
+              enableReloadBtn={enableReloadBtn}
+              reloadBtnClassName={LEFT_RELOAD_BUTTON_CLASSNAME}
+              reloadBtnName={LEFT_RELOAD_BUTTON_NAME}
+              enableDescription={enableDescription}
+              featurePagination={featurePagination}
+              handleCheckBoxChange={handleCheckboxChange}
+              handleSelectAllCheckbox={handleSelectAllCheckbox}
+              handleSearch={handleSearch}
+              handleClearSearch={handleClearSearch}
+              handleInvertCurrentPage={handleInvertCurrentPage}
+              handleSelectCurrentPage={handleSelectCurrentPage}
+              handleReloadBtnClick={handleReloadBtnClick}
+            />
+            <TransferButtons
+              source={source}
+              target={target}
+              isOneWayToggled={isOneWayToggled}
+              featureMoveTargetToSource={featureMoveTargetToSource}
+              handleTransferBtnClick={handleTransferBtnClick}
+            />
+            <Container
+              type={TARGET}
+              dataSource={featureStatus ? [] : target}
+              featureStatus={featureStatus}
+              featureDisable={featureDisable}
+              featureShowSearch={featureShowSearch}
+              featureMoveTargetToSource={featureMoveTargetToSource}
+              enableDeleteIcon={enableDeleteIcon}
+              isToggled={isToggled}
+              isOneWayToggled={isOneWayToggled}
+              enableReloadBtn={enableReloadBtn}
+              reloadBtnClassName={RIGHT_RELOAD_BUTTON_CLASSNAME}
+              reloadBtnName={RIGHT_RELOAD_BUTTON_NAME}
+              enableDescription={enableDescription}
+              featurePagination={featurePagination}
+              handleCheckBoxChange={handleCheckboxChange}
+              handleSelectAllCheckbox={handleSelectAllCheckbox}
+              handleDeleteItem={handleDeleteItem}
+              handleTransferBtnClick={handleTransferBtnClick}
+              handleSearch={handleSearch}
+              handleClearSearch={handleClearSearch}
+              handleInvertCurrentPage={handleInvertCurrentPage}
+              handleSelectCurrentPage={handleSelectCurrentPage}
+              handleReloadBtnClick={handleReloadBtnClick}
+            />
           </ErrorBoundary>
         </div>
 
-        {enableToggle && (
+        {(enableToggle || featureOneWayToggle) && (
           <div className="bottom-container">
             <label className="toggle">
               <input
                 type="checkbox"
-                onChange={handleToggle}
-                checked={isToggled}
+                onChange={
+                  featureOneWayToggle ? handleOneWayToggle : handleToggle
+                }
+                checked={featureOneWayToggle ? isOneWayToggled : isToggled}
               />
               <span className="slider">
-                <span className="toggle-label">disabled</span>
+                <span className="toggle-label">
+                  {featureOneWayToggle
+                    ? ONE_WAY_TOGGLE_NAME
+                    : DISABLED_TOGGLE_NAME}
+                </span>
               </span>
             </label>
           </div>
@@ -215,20 +263,19 @@ function Transfer({
       </div>
     </>
   );
- 
 }
 
 Transfer.propTypes = {
-  title:PropTypes.string,
-  enableToggle:PropTypes.boolean,
-  featureMoveTargetToSource:PropTypes.boolean,
-  enableReloadBtn:PropTypes.boolean,
-  featureDisable:PropTypes.boolean,
-  enableDeleteIcon:PropTypes.boolean,
-  enableDescription:PropTypes.boolean,
-  featurePagination:PropTypes.boolean,
-  featureStatus:PropTypes.boolean,
-  featureShowSearch:PropTypes.boolean,
+  title: PropTypes.string,
+  enableToggle: PropTypes.boolean,
+  featureMoveTargetToSource: PropTypes.boolean,
+  enableReloadBtn: PropTypes.boolean,
+  featureDisable: PropTypes.boolean,
+  enableDeleteIcon: PropTypes.boolean,
+  enableDescription: PropTypes.boolean,
+  featurePagination: PropTypes.boolean,
+  featureStatus: PropTypes.boolean,
+  featureShowSearch: PropTypes.boolean,
 };
 
 export default Transfer;

@@ -15,10 +15,9 @@ function Footer({
   totalPageCount,
   handlePrev,
   handleNext,
-  handlePagination
+  handlePagination,
 }) {
-  
-  return ( 
+  return (
     <>
       <hr className="divider" />
       {enableReloadBtn && !featurePagination && (
@@ -31,10 +30,15 @@ function Footer({
       {!enableReloadBtn && featurePagination && (
         <>
           <div className="pagination">
-            <button className={(currentPage === 1) ? "disable-button" : "arrow-btn"}>
-              <img src={leftArrow} alt="Previous" className="left-arrow" 
-              onClick={handlePrev}
-               />
+            <button
+              className={currentPage === 1 ? "disable-button" : "arrow-btn"}
+            >
+              <img
+                src={leftArrow}
+                alt="Previous"
+                className="left-arrow"
+                onClick={handlePrev}
+              />
             </button>
             <input
               type="text"
@@ -44,9 +48,16 @@ function Footer({
             />
             <img src={divider} className="frontSlash" />
             <p>{totalPageCount}</p>
-            <button className={(currentPage === totalPageCount) ? "disable-button" : "arrow-btn"}>
-              <img src={rightArrow} alt="Next" className="right-arrow" 
-              onClick={handleNext} 
+            <button
+              className={
+                currentPage === totalPageCount ? "disable-button" : "arrow-btn"
+              }
+            >
+              <img
+                src={rightArrow}
+                alt="Next"
+                className="right-arrow"
+                onClick={handleNext}
               />
             </button>
           </div>
@@ -57,15 +68,15 @@ function Footer({
 }
 
 Footer.propTypes = {
-  enableReloadBtn:PropTypes.boolean,
-  handleReloadBtnClick:PropTypes.function,
-  reloadBtnClassName:PropTypes.string,
-  reloadBtnName:PropTypes.string,
-  featurePagination:PropTypes.boolean,
-  currentPage:PropTypes.number,
-  totalPageCount:PropTypes.number,
-  handlePrev:PropTypes.function,
-  handleNext:PropTypes.function,
-  handlePagination:PropTypes.function,
+  enableReloadBtn: PropTypes.boolean,
+  handleReloadBtnClick: PropTypes.function,
+  reloadBtnClassName: PropTypes.string,
+  reloadBtnName: PropTypes.string,
+  featurePagination: PropTypes.boolean,
+  currentPage: PropTypes.number,
+  totalPageCount: PropTypes.number,
+  handlePrev: PropTypes.function,
+  handleNext: PropTypes.function,
+  handlePagination: PropTypes.function,
 };
 export default Footer;

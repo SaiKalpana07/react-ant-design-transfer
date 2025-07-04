@@ -8,6 +8,7 @@ function Item({
   featureDisable,
   enableDeleteIcon,
   isToggled,
+  isOneWayToggled,
   featureMoveTargetToSource,
   handleDeleteItem,
   enableDescription,
@@ -18,7 +19,7 @@ function Item({
   return (
     <>
       <li className="list-item">
-        {featureMoveTargetToSource && (
+        {featureMoveTargetToSource && !isOneWayToggled && (
           <input
             className={disabledClassName}
             type="checkbox"
@@ -31,7 +32,7 @@ function Item({
           {data.name}
           {enableDescription && <span>- {data.description}</span>}
         </label>
-        {!enableDeleteIcon && (
+        {(!enableDeleteIcon || isOneWayToggled) && (
           <span className="delete-icon">
             <i
               className="fa-regular fa-trash-can"
